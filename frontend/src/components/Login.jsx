@@ -1,7 +1,8 @@
 /* eslint-disable no-useless-return */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable arrow-body-style */
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Formik, Form, Field,
 } from 'formik';
@@ -23,7 +24,9 @@ const signupSchema = Yup.object().shape({
 });
 
 const Login = () => {
-  const authorization = useAuth();
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const [authFailed, setauthFailed] = useState(false);
 
   return (
     <div className="container-fluid h-100">
@@ -40,20 +43,20 @@ const Login = () => {
                   password: '',
                 }}
                 onSubmit={({ username, password }, actions) => {
+                  setauthFailed(false);
                   axios.post(routes.loginPath(), {
                     username,
                     password,
                   })
                     .then((responce) => {
                       localStorage.setItem('userId', JSON.stringify(responce.data));
-                      console.log(responce);
-                      authorization.logIn();
+                      auth.logIn();
+                      navigate('/');
                     })
                     .catch((error) => {
-                      console.log(error);
                       actions.setSubmitting(false);
                       if (error.isAxiosError && error.response.status === 401) {
-                        console.log('boom');
+                        setauthFailed(true);
                         return;
                       }
                       return;
@@ -78,6 +81,7 @@ const Login = () => {
                       placeholder="Пароль"
                     />
                     <p className="feedback m-0 small text-danger">{errors.password && touched.password ? errors.password : ''}</p>
+                    {authFailed && <p className="feedback m-0 small text-danger">Неверное имя пользователя и пароль</p>}
                     <button type="submit" className="btn btn-outline-primary w-100 mb-3">Войти</button>
                   </Form>
                 )}

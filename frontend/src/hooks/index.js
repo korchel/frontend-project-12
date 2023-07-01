@@ -1,7 +1,8 @@
-import { useContext } from 'react';
+/* eslint-disable quotes */
+import { useContext } from "react";
 
-import authoerizationContext from '../contexts/index.js';
+import authContext from "../contexts/index.js";
 
-const useAuth = () => useContext(authoerizationContext);
+const useAuth = () => useContext(authContext);
 
 export default useAuth;
