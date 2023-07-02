@@ -1,34 +1,19 @@
-/* eslint-disable quotes */
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import {
   BrowserRouter, Routes, Route, Link,
-} from "react-router-dom";
-import { Button, Navbar } from "react-bootstrap";
-import Login from "./components/Login";
-import "bootstrap/dist/css/bootstrap.min.css";
-import MainPage from "./components/MainPage";
-import NotFoundPage from "./components/NotFoundPage";
-import AuthContext from "./contexts/index.js";
-import useAuth from "./hooks";
+} from 'react-router-dom';
+import { Button, Navbar } from 'react-bootstrap';
 
-const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const logIn = () => setLoggedIn(true);
-  const logOut = () => {
-    console.log(loggedIn);
-    localStorage.removeItem("userId");
-    setLoggedIn(false);
-  };
-
-  return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+import Login from './components/Login';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Chat from './components/chat/Chat';
+import NotFoundPage from './components/NotFoundPage';
+import AuthProvider from './contexts/AuthContext.jsx';
+import ChatWSProvider from './contexts/ChatWSContext';
+import useAuth from './hooks/useAuth';
 
 const LogOutButton = () => {
   const auth = useAuth();
@@ -40,7 +25,7 @@ const LogOutButton = () => {
     )
   );
 };
-const App = () => (
+const App = ({ webSocket }) => (
   <AuthProvider>
     <BrowserRouter>
       <Navbar bg="light" expand="lg">
@@ -48,7 +33,14 @@ const App = () => (
         <LogOutButton />
       </Navbar>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route
+          path="/"
+          element={(
+            <ChatWSProvider webSocket={webSocket}>
+              <Chat />
+            </ChatWSProvider>
+          )}
+        />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<Login />} />
       </Routes>

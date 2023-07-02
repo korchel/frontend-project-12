@@ -8,9 +8,10 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+
 import avatarImages from '../assets/avatar.jpg';
 import routes from '../routes.js';
-import useAuth from '../hooks/index.js';
+import useAuth from '../hooks/useAuth.js';
 
 const signupSchema = Yup.object().shape({
   username: Yup.string()
