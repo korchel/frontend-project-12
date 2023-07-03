@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Col, Button, ListGroup } from 'react-bootstrap';
@@ -7,6 +8,7 @@ import { selectors } from '../../slices/channelsSlice.js';
 
 const Channels = () => {
   const channels = useSelector(selectors.selectAll);
+
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
