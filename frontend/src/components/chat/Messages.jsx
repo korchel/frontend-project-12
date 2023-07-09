@@ -7,25 +7,28 @@ import { selectors as messagesSelectors } from '../../slices/messagesSlice.js';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 
 import MessagesHeader from './MessagesHeader.jsx';
+import MessagesBox from './MessagesBox.jsx';
 import MessagesInput from './MessagesInput.jsx';
 
+
 const Messages = () => {
-  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId); // 1
-  const currentChannel = useSelector((state) => channelsSelectors.selectById(state, currentChannelId)); // undefined!!!
-  const currentChannelName = currentChannel.name; 
+  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
+  const currentChannel = useSelector((state) => channelsSelectors.selectById(state, currentChannelId));
 
   const messages = useSelector(messagesSelectors.selectAll);
+
   const currentsMessages = messages.filter((message) => message.channelId === currentChannelId);
-  const numberOfMessages = currentsMessages.length;
 
   return (
     <Col className="p-0 h-100">
-      <MessagesHeader
-        currentChannelName={currentChannelName}
-        numberOfMessages={numberOfMessages}
-      />
-      <p>something</p>
-      <MessagesInput/>
+      <div className="d-flex flex-column h-100">
+        <MessagesHeader
+          currentChannelName={currentChannel?.name}
+          numberOfMessages={currentsMessages?.length}
+        />
+        <MessagesBox messages={currentsMessages}/>
+        <MessagesInput currentChannelId={currentChannelId}/>
+      </div>
     </Col>
   );
 };

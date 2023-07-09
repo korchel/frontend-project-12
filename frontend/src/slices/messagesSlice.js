@@ -1,4 +1,7 @@
+/* eslint-disable */
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+
+import { removeChannel } from './channelsSlice';
 
 const messagesAdapter = createEntityAdapter();
 
@@ -10,6 +13,15 @@ const messagesSlice = createSlice({
   reducers: {
     addMessage: messagesAdapter.addOne,
     addMessages: messagesAdapter.addMany,
+  },
+  extraReducers: (builder) => {
+    builder.addCase(removeChannel, (state, action) => {
+      const removedChannelId = action.payload;
+      const messagesIds = Object.values(state.entities)
+        .filter((message) => message.channelId === removedChannelId)
+        .map((message) => message.id);
+      messagesAdapter.removeMany(messagesIds);
+    });
   },
 });
 

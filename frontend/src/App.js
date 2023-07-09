@@ -28,22 +28,24 @@ const LogOutButton = () => {
 const App = ({ webSocket }) => (
   <AuthProvider>
     <BrowserRouter>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand>Hexlet Chat</Navbar.Brand>
-        <LogOutButton />
-      </Navbar>
-      <Routes>
-        <Route
-          path="/"
-          element={(
-            <ChatWSProvider webSocket={webSocket}>
-              <Chat />
-            </ChatWSProvider>
-          )}
-        />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <div className="d-flex flex-column h-100">
+        <Navbar bg="wight" expand="lg">
+          <Navbar.Brand>Hexlet Chat</Navbar.Brand>
+          <LogOutButton />
+        </Navbar>
+        <Routes>
+          <Route
+            path="/"
+            element={(
+              <ChatWSProvider webSocket={webSocket}>
+                <Chat />
+              </ChatWSProvider>
+            )}
+          />
+          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   </AuthProvider>
 );

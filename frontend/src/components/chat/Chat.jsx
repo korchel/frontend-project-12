@@ -11,6 +11,8 @@ import { addMessages } from '../../slices/messagesSlice.js';
 import { addChannels, setCurrentChannelId } from '../../slices/channelsSlice.js';
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
+import getModal from '../modals/index.js';
+import { openModal, closeModal } from '../../slices/modalsSlice.js';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -18,13 +20,22 @@ const getAuthHeader = () => {
   if (userId && userId.token) {
     return { Authorization: `Bearer ${userId.token}` };
   }
-
   return {};
+};
+
+const renderModal = (type, hideModal) => {
+  if (!type) {
+    return null;
+  }
+  const Component = getModal(type);
+  return <Component onHide={hideModal}/>;
 };
 
 const Chat = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const modalType = useSelector((state) => state.modalsReducer.type);
 
   useEffect(() => {
     axios.get(routes.usersPath(), { headers: getAuthHeader() })
@@ -42,12 +53,22 @@ const Chat = () => {
         return;
       });
   });
+
+  const hideModal = () => {
+    dispatch(closeModal());
+  };
+
+  const showModal = (type, id = null) => {
+    dispatch(openModal({type, id}));
+  };
+
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
       <Row className="h-100 bg-white flex-md-row">
-        <Channels />
+        <Channels showModal={showModal}/>
         <Messages />
       </Row>
+      {renderModal(modalType, hideModal)}
     </Container>
   );
 };
