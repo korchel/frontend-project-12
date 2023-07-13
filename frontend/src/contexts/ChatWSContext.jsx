@@ -2,7 +2,7 @@
 import React, { createContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../slices/messagesSlice';
-import { setCurrentChannelId } from '../slices/channelsSlice';
+import { setCurrentChannelId, removeChannel } from '../slices/channelsSlice';
 
 export const ChatWSContext = createContext();
 
@@ -24,18 +24,21 @@ const ChatWSProvider = ({ webSocket, children }) => {
 
   const addChannel = (channel) => {
     webSocket.emit('newChannel', channel, (response) => {
-      dispatch(setCurrentChannelId(response.data));
+      console.log(response.data.id)
+      dispatch(setCurrentChannelId(response.data.id));
     });
   };
 
-  const removeChannel = (id) => {
+  const deleteChannel = (id) => {
     webSocket.emit('removeChannel', {id}, (response) => {
-      console.log(response);
+      if (response.status === 'ok') {
+        dispatch(removeChannel(id));
+      }
     });
   };
 
   return (
-    <ChatWSContext.Provider value={{sendMessage, addChannel, removeChannel}}>
+    <ChatWSContext.Provider value={{sendMessage, addChannel, deleteChannel}}>
       {children}
     </ChatWSContext.Provider>
   )

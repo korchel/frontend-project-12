@@ -20,7 +20,8 @@ const messagesSlice = createSlice({
       const messagesIds = Object.values(state.entities)
         .filter((message) => message.channelId === removedChannelId)
         .map((message) => message.id);
-      messagesAdapter.removeMany(messagesIds);
+      console.log(messagesIds)
+      messagesAdapter.removeMany(state, messagesIds);
     });
   },
 });

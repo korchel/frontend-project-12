@@ -6,11 +6,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import useChatWS from '../../hooks/useChatWS.js';
 
 const RemoveChannel = ({ onHide }) => {
-  const { removeChannel } = useChatWS();
+  const { deleteChannel } = useChatWS();
   const removedChannelId = useSelector((state) => state.modalsReducer.channelId);
 
   const handleDelete = () => {
-    removeChannel(removedChannelId);
+    deleteChannel(removedChannelId);
     onHide();
   };
 
