@@ -23,12 +23,12 @@ const getAuthHeader = () => {
   return {};
 };
 
-const renderModal = (type, hideModal) => {
+const renderModal = (type) => {
   if (!type) {
     return null;
   }
   const Component = getModal(type);
-  return <Component onHide={hideModal}/>;
+  return <Component />;
 };
 
 const Chat = () => {
@@ -54,10 +54,6 @@ const Chat = () => {
       });
   });
 
-  const hideModal = () => {
-    dispatch(closeModal());
-  };
-
   const showModal = (type, id = null) => {
     dispatch(openModal({type, id}));
   };
@@ -68,7 +64,7 @@ const Chat = () => {
         <Channels showModal={showModal}/>
         <Messages />
       </Row>
-      {renderModal(modalType, hideModal)}
+      {renderModal(modalType)}
     </Container>
   );
 };

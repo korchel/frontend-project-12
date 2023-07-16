@@ -8,7 +8,7 @@ import { selectors, setCurrentChannelId } from '../../slices/channelsSlice.js';
 
 const Channel = ({channel, changeChannel, showModal}) => {
   return (
-    <div className="nav-item w-100">
+    <li className="nav-item w-100">
       {channel.removable 
         ? (
           <Dropdown key={channel.id} as={ButtonGroup} className="d-flex">
@@ -42,7 +42,7 @@ const Channel = ({channel, changeChannel, showModal}) => {
           </Button>
         )
       }
-    </div>
+    </li>
   )
 }
 
@@ -57,7 +57,7 @@ const Channels = ({ showModal }) => {
   };
 
   return (
-    <Col xs={4} className="col-md-2 border-end px-0 bg-light flex-column d-flex h-100">
+    <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column d-flex h-100">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>Каналы</b>
         <Button 
