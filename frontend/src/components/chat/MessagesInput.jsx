@@ -44,7 +44,7 @@ const MessagesInput = ({ currentChannelId }) => {
             onChange={formik.handleChange}
             ref={inputRef}
           />
-            <Button type="submit" className="btn-group-vertical">
+            <Button type="submit" variant="link" className="btn-group-vertical text-dark">
               <ArrowRightSquare size={20} />
             </Button>
         </InputGroup>

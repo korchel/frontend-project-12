@@ -34,6 +34,7 @@ const renderModal = (type) => {
 const Chat = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [fetched, setFetched] = useState(false);
 
   const modalType = useSelector((state) => state.modalsReducer.type);
 

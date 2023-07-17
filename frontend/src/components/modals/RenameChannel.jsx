@@ -24,7 +24,7 @@ const RenameChannel = () => {
   const { renameChannel } = useChatWS();
   const dispatch = useDispatch();
   const inputRef = useRef();
-  const channels = useSelector(selectors.selectAll).map((channel) => channel.name)
+  const channels = useSelector(selectors.selectAll).map((channel) => channel.name);
   console.log(channels)
   const renamedChannelId = useSelector((state) => state.modalsReducer.channelId);
 

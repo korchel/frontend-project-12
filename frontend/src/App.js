@@ -1,38 +1,23 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable react/jsx-no-constructed-context-values */
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+/* eslint-disable */
+import React from 'react';
 import {
   BrowserRouter, Routes, Route, Link,
 } from 'react-router-dom';
-import { Button, Navbar } from 'react-bootstrap';
 
-import Login from './components/Login';
+import Navigation from './components/Navigation';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Chat from './components/chat/Chat';
 import NotFoundPage from './components/NotFoundPage';
 import AuthProvider from './contexts/AuthContext.jsx';
 import ChatWSProvider from './contexts/ChatWSContext';
-import useAuth from './hooks/useAuth';
 
-const LogOutButton = () => {
-  const auth = useAuth();
-  return (
-    auth.loggedIn && (
-      <Button as={Link} to="/login" onClick={auth.logOut}>
-        Log out
-      </Button>
-    )
-  );
-};
 const App = ({ webSocket }) => (
   <AuthProvider>
     <BrowserRouter>
       <div className="d-flex flex-column h-100">
-        <Navbar bg="wight" expand="lg">
-          <Navbar.Brand>Hexlet Chat</Navbar.Brand>
-          <LogOutButton />
-        </Navbar>
+        <Navigation />
         <Routes>
           <Route
             path="/"
@@ -43,7 +28,8 @@ const App = ({ webSocket }) => (
             )}
           />
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </div>
     </BrowserRouter>

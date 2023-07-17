@@ -1,13 +1,14 @@
-/* eslint-disable no-useless-return */
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable arrow-body-style */
+/* eslint-disable */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   Formik, Form, Field,
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import {
+  Container, Row, Col, Card, Image,
+} from 'react-bootstrap';
 
 import avatarImages from '../assets/avatar.jpg';
 import routes from '../routes.js';
@@ -24,20 +25,20 @@ const signupSchema = Yup.object().shape({
     .required('Обязательное поле'),
 });
 
-const Login = () => {
+const LoginPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [authFailed, setauthFailed] = useState(false);
 
   return (
-    <div className="container-fluid h-100">
-      <div className="row justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
-          <div className="card shadow-sm">
-            <div className="card-body row p-5">
-              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img src={avatarImages} alt="#" className="rounded-circle" />
-              </div>
+    <Container fluid className="h-100">
+      <Row className="justify-content-center align-content-center h-100">
+        <Col xs={12} md={8} xxl={6}>
+          <Card className="shadow-sm">
+            <Card.Body className="row p-5">
+              <Col md={6} xs={12} className="d-flex align-items-center justify-content-center">
+                <Image src={avatarImages} alt="#" className="rounded-circle" />
+              </Col>
               <Formik
                 initialValues={{
                   username: '',
@@ -87,17 +88,18 @@ const Login = () => {
                   </Form>
                 )}
               </Formik>
-              <div className="card-footer p-4">
-                <div className="text-center">
-                  Нет аккаунта? Регистрация
-                </div>
+            </Card.Body>
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <span className="px-1">Нет аккаунта?</span>
+                <Link to="/signup">Регистрация</Link>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Card.Footer>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
-export default Login;
+export default LoginPage;
