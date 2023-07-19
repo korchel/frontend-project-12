@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
-  Formik, Form, Field,
+  Formik, Form, Field, ErrorMessage
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -12,21 +12,19 @@ import {
 
 import avatarImages from '../assets/avatar.jpg';
 import routes from '../routes.js';
-import useAuth from '../hooks/useAuth.js';
 
-const signupSchema = Yup.object().shape({
+const loginSchema = Yup.object().shape({
   username: Yup.string()
-    .min(2, 'Минимум 2 символа')
-    .max(50, 'Максимум 50 символов')
+    .min(3, 'Минимум 3 символа')
+    .max(20, 'Максимум 20 символов')
     .required('Обязательное поле'),
   password: Yup.string()
-    .min(5, 'Минимум 5 символов')
+    .min(5, 'Минимум 6 символов')
     .max(14, 'Максимум 14 символов')
     .required('Обязательное поле'),
 });
 
 const LoginPage = () => {
-  const auth = useAuth();
   const navigate = useNavigate();
   const [authFailed, setauthFailed] = useState(false);
 
@@ -64,29 +62,30 @@ const LoginPage = () => {
                       return;
                     });
                 }}
-                validationSchema={signupSchema}
+                validationSchema={loginSchema}
               >
-                {({ errors, touched }) => (
-                  <Form className="col-12 col-md-6 mt-3 mt-mb-0">
-                    <h1 className="text-center mb-4">Войти</h1>
-                    <Field
-                      type="text"
-                      name="username"
-                      placeholder="Ваш ник"
-                      className="form-control form-floating mb-3"
-                    />
-                    <p className="feedback m-0 small text-danger">{errors.username && touched.username ? errors.username : ''}</p>
-                    <Field
-                      type="password"
-                      name="password"
-                      className="form-control form-floating mb-3"
-                      placeholder="Пароль"
-                    />
-                    <p className="feedback m-0 small text-danger">{errors.password && touched.password ? errors.password : ''}</p>
-                    {authFailed && <p className="feedback m-0 small text-danger">Неверное имя пользователя и пароль</p>}
-                    <button type="submit" className="btn btn-outline-primary w-100 mb-3">Войти</button>
-                  </Form>
-                )}
+                <Form className="col-12 col-md-6 mt-3 mt-mb-0">
+                  <h1 className="text-center mb-4">Войти</h1>
+                  <Field
+                    type="text"
+                    name="username"
+                    placeholder="Ваш ник"
+                    className="form-control form-floating mb-3"
+                  />
+                  <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
+                  <Field
+                    type="password"
+                    name="password"
+                    className="form-control form-floating mb-3"
+                    placeholder="Пароль"
+                  />
+                  <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
+                  {authFailed && 
+                    <p className="feedback m-0 small text-danger">
+                      Неверные имя пользователя и пароль
+                    </p>}
+                  <button type="submit" className="btn btn-outline-primary w-100 mb-3">Войти</button>
+                </Form>
               </Formik>
             </Card.Body>
             <Card.Footer className="p-4">

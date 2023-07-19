@@ -12,7 +12,8 @@ import { addChannels, setCurrentChannelId } from '../../slices/channelsSlice.js'
 import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
 import getModal from '../modals/index.js';
-import { openModal, closeModal } from '../../slices/modalsSlice.js';
+import { openModal } from '../../slices/modalsSlice.js';
+import useAuth from '../../hooks/useAuth.js';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -32,6 +33,7 @@ const renderModal = (type) => {
 };
 
 const Chat = () => {
+  const auth = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [fetched, setFetched] = useState(false);

@@ -4,7 +4,7 @@ import {
   BrowserRouter, Routes, Route, Link,
 } from 'react-router-dom';
 
-import Navigation from './components/Navigation';
+import Header from './components/Header';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,7 +17,7 @@ const App = ({ webSocket }) => (
   <AuthProvider>
     <BrowserRouter>
       <div className="d-flex flex-column h-100">
-        <Navigation />
+        <Header />
         <Routes>
           <Route
             path="/"
