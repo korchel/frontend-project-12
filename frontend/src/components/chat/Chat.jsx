@@ -41,7 +41,7 @@ const Chat = () => {
   const modalType = useSelector((state) => state.modalsReducer.type);
 
   useEffect(() => {
-    axios.get(routes.usersPath(), { headers: getAuthHeader() })
+    axios.get(routes.dataPath(), { headers: getAuthHeader() })
       .then((responce) => {
         const { channels, messages, currentChannelId } = responce.data;
         dispatch(addChannels(channels));

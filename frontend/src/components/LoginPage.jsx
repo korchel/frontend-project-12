@@ -48,8 +48,8 @@ const LoginPage = () => {
                     username,
                     password,
                   })
-                    .then((responce) => {
-                      localStorage.setItem('userId', JSON.stringify(responce.data));
+                    .then((response) => {
+                      localStorage.setItem('userId', JSON.stringify(response.data));
                       auth.logIn();
                       navigate('/');
                     })

@@ -23,6 +23,9 @@ const signupSchema = Yup.object().shape({
     .min(6, 'Минимум 6 символов')
     .max(14, 'Максимум 14 символов')
     .required('Обязательное поле'),
+  passwordConfirmation: Yup.string()
+    .required('Обязательное поле')
+    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать!'),
 });
 
 const SignupPage = () => {
@@ -39,21 +42,25 @@ const SignupPage = () => {
                 initialValues={{
                   username: '',
                   password: '',
+                  passwordConfirmation: '',
+
                 }}
                 onSubmit={({ username, password }, actions) => {
                   setauthFailed(false);
-                  axios.post(routes.loginPath(), {
+                  console.log(username, password)
+                  axios.post(routes.signupPath(), {
                     username,
                     password,
                   })
-                    .then((responce) => {
-                      localStorage.setItem('userId', JSON.stringify(responce.data));
+                    .then((response) => {
+                      localStorage.setItem('userId', JSON.stringify(response.data));
+                      console.log('boo');
                       auth.logIn();
                       navigate('/');
                     })
                     .catch((error) => {
                       actions.setSubmitting(false);
-                      if (error.isAxiosError && error.response.status === 401) {
+                      if (error.isAxiosError && error.response.status === 409) {
                         setauthFailed(true);
                         return;
                       }
@@ -62,32 +69,30 @@ const SignupPage = () => {
                 }}
                 validationSchema={signupSchema}
               >
-                {({ errors, touched }) => (
-                  <Form className="col-12 col-md-6 mt-3 mt-mb-0">
-                    <h1 className="text-center mb-4">Регистрация</h1>
-                    <Field
-                      type="text"
-                      name="username"
-                      placeholder="Имя пользователя"
-                      className="form-control form-floating mb-3"
-                    />
-                    <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
-                    <Field
-                      type="password"
-                      name="password"
-                      className="form-control form-floating mb-3"
-                      placeholder="Пароль"
-                    />
-                    <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
-                    <Field
-                      type="password"
-                      name="passford confirmation"
-                      className="form-control form-floating mb-3"
-                      placeholder="Подтвердите пароль"
-                    />
-                    <button type="submit" className="btn btn-outline-primary w-100 mb-3">Зарегестрироваться</button>
-                  </Form>
-                )}
+                <Form className="col-12 col-md-6 mt-3 mt-mb-0">
+                  <h1 className="text-center mb-4">Регистрация</h1>
+                  <Field
+                    type="text"
+                    name="username"
+                    placeholder="Имя пользователя"
+                    className="form-control form-floating mb-3"
+                  />
+                  <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
+                  <Field
+                    type="password"
+                    name="password"
+                    className="form-control form-floating mb-3"
+                    placeholder="Пароль"
+                  />
+                  <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
+                  <Field
+                    type="password"
+                    name="passwordConfirmation"
+                    className="form-control form-floating mb-3"
+                    placeholder="Подтвердите пароль"
+                  />
+                  <button type="submit" className="btn btn-outline-primary w-100 mb-3">Зарегестрироваться</button>
+                </Form>
               </Formik>
             </Card.Body>
           </Card>
