@@ -10,13 +10,11 @@ import useChatWS from '../../hooks/useChatWS';
 const MessagesInput = ({ currentChannelId }) => {
   const inputRef = useRef(null);
   const { sendMessage } = useChatWS();
-
   const { username } = JSON.parse(localStorage.getItem('userId'));
 
   const formik = useFormik({
     initialValues: {message: ''},
     onSubmit: ({message}) => {
-      console.log(message)
       const newMessage = {
         body: message,
         channelId: currentChannelId,

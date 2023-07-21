@@ -12,6 +12,7 @@ import {
 
 import avatarImages from '../assets/avatar.jpg';
 import routes from '../routes.js';
+import useAuth from '../hooks/useAuth';
 
 const loginSchema = Yup.object().shape({
   username: Yup.string()
@@ -25,6 +26,7 @@ const loginSchema = Yup.object().shape({
 });
 
 const LoginPage = () => {
+  const auth = useAuth();
   const navigate = useNavigate();
   const [authFailed, setauthFailed] = useState(false);
 
@@ -50,6 +52,7 @@ const LoginPage = () => {
                   })
                     .then((response) => {
                       localStorage.setItem('userId', JSON.stringify(response.data));
+
                       auth.logIn();
                       navigate('/');
                     })

@@ -29,6 +29,10 @@ const signupSchema = Yup.object().shape({
 });
 
 const SignupPage = () => {
+  const navigate = useNavigate();
+  const auth = useAuth();
+  const [signupFailed, setSignupFailed] = useState(false);
+
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -46,22 +50,20 @@ const SignupPage = () => {
 
                 }}
                 onSubmit={({ username, password }, actions) => {
-                  setauthFailed(false);
-                  console.log(username, password)
+                  setSignupFailed(false);
                   axios.post(routes.signupPath(), {
                     username,
                     password,
                   })
                     .then((response) => {
                       localStorage.setItem('userId', JSON.stringify(response.data));
-                      console.log('boo');
                       auth.logIn();
                       navigate('/');
                     })
                     .catch((error) => {
                       actions.setSubmitting(false);
                       if (error.isAxiosError && error.response.status === 409) {
-                        setauthFailed(true);
+                        setSignupFailed(true);
                         return;
                       }
                       return;

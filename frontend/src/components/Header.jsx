@@ -7,6 +7,7 @@ import useAuth from '../hooks/useAuth';
 
 const LogOutButton = () => {
   const auth = useAuth();
+
   return (
     auth.loggedIn && (
       <Button as={Link} to="/login" onClick={auth.logOut}>
@@ -16,16 +17,15 @@ const LogOutButton = () => {
   );
 };
 
-const Navigation = () => {
+const Header = () => {
   return (
     <Navbar bg="wight" expand="lg" className="shadow-sm">
       <Container>
         <Navbar.Brand>Hexlet Chat</Navbar.Brand>
         <LogOutButton />
       </Container>
-      
     </Navbar>
 )
 };
 
-export default Navigation;
+export default Header;
