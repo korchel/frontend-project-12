@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import {
-  BrowserRouter, Routes, Route, Link,
+  BrowserRouter, Routes, Route, Link, Navigate
 } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -12,6 +12,14 @@ import Chat from './components/chat/Chat';
 import NotFoundPage from './components/NotFoundPage';
 import AuthProvider from './contexts/AuthContext.jsx';
 import ChatWSProvider from './contexts/ChatWSContext';
+import useAuth from './hooks/useAuth';
+
+const PrivateRoute = ({ children }) => {
+  const auth = useAuth();
+  return (
+    auth.loggedIn ? children : <Navigate to="/login" />
+  )
+}
 
 const App = ({ webSocket }) => (
   <AuthProvider>
@@ -23,7 +31,9 @@ const App = ({ webSocket }) => (
             path="/"
             element={(
               <ChatWSProvider webSocket={webSocket}>
-                <Chat />
+                <PrivateRoute>
+                  <Chat />
+                </PrivateRoute>
               </ChatWSProvider>
             )}
           />

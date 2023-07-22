@@ -21,7 +21,7 @@ const Header = () => {
   return (
     <Navbar bg="wight" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand>Hexlet Chat</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
         <LogOutButton />
       </Container>
     </Navbar>

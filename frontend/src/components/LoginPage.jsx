@@ -10,7 +10,7 @@ import {
   Container, Row, Col, Card, Image,
 } from 'react-bootstrap';
 
-import avatarImages from '../assets/avatar.jpg';
+import image from '../assets/login.jpg';
 import routes from '../routes.js';
 import useAuth from '../hooks/useAuth';
 
@@ -37,7 +37,7 @@ const LoginPage = () => {
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <Col md={6} xs={12} className="d-flex align-items-center justify-content-center">
-                <Image src={avatarImages} alt="#" className="rounded-circle" />
+                <Image src={image} alt="#" className="rounded-circle" />
               </Col>
               <Formik
                 initialValues={{
