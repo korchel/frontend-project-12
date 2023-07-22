@@ -9,26 +9,24 @@ import axios from 'axios';
 import {
   Container, Row, Col, Card, Image,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import image from '../assets/login.jpg';
 import routes from '../routes.js';
 import useAuth from '../hooks/useAuth';
 
-const loginSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, 'Минимум 3 символа')
-    .max(20, 'Максимум 20 символов')
-    .required('Обязательное поле'),
-  password: Yup.string()
-    .min(5, 'Минимум 6 символов')
-    .max(14, 'Максимум 14 символов')
-    .required('Обязательное поле'),
-});
-
 const LoginPage = () => {
+  const { t } = useTranslation();
   const auth = useAuth();
   const navigate = useNavigate();
   const [authFailed, setauthFailed] = useState(false);
+
+  const loginSchema = Yup.object().shape({
+    username: Yup.string()
+      .required(t('login.requiredField')),
+    password: Yup.string()
+      .required('Обязательное поле'),
+  });
 
   return (
     <Container fluid className="h-100">
@@ -68,33 +66,33 @@ const LoginPage = () => {
                 validationSchema={loginSchema}
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
-                  <h1 className="text-center mb-4">Войти</h1>
+                  <h1 className="text-center mb-4">{t('login.signin')}</h1>
                   <Field
                     type="text"
                     name="username"
-                    placeholder="Ваш ник"
+                    placeholder={t('login.username')}
                     className="form-control form-floating mb-3"
                   />
                   <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
                   <Field
                     type="password"
                     name="password"
+                    placeholder={t('login.password')}
                     className="form-control form-floating mb-3"
-                    placeholder="Пароль"
                   />
                   <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
                   {authFailed && 
                     <p className="feedback m-0 small text-danger">
-                      Неверные имя пользователя и пароль
+                      {t('login.wrongUsernameAndPassword')}
                     </p>}
-                  <button type="submit" className="btn btn-outline-primary w-100 mb-3">Войти</button>
+                  <button type="submit" className="btn btn-outline-primary w-100 mb-3">{t('login.signin')}</button>
                 </Form>
               </Formik>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span className="px-1">Нет аккаунта?</span>
-                <Link to="/signup">Регистрация</Link>
+                <span className="px-1">{t('login.noAccountYet')}</span>
+                <Link to="/signup">{t('login.signup')}</Link>
               </div>
             </Card.Footer>
           </Card>

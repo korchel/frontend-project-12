@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import useChatWS from '../../hooks/useChatWS.js';
 import { selectors } from '../../slices/channelsSlice.js';
@@ -21,6 +22,7 @@ const getValidationSchema = (channels) => Yup.object().shape({
 });
 
 const RenameChannel = () => {
+  const { t } = useTranslation();
   const { renameChannel } = useChatWS();
   const dispatch = useDispatch();
   const inputRef = useRef();
@@ -48,7 +50,7 @@ const RenameChannel = () => {
   return (
     <Modal show onHide={hideModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('chat.modals.renameChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -62,8 +64,8 @@ const RenameChannel = () => {
             />
             <p className="feedback m-0 small text-danger">{formik.errors.newName && formik.touched.newName ? formik.errors.newName : ''}</p>
             <div className="d-flex justify-content-end">
-              <Button onClick={hideModal} className="me-2" variant="secondary">Отменить</Button>
-              <Button type="submit" variant="primary">Отправить</Button>
+              <Button onClick={hideModal} className="me-2" variant="secondary">{t('chat.modals.cancel')}</Button>
+              <Button type="submit" variant="primary">{t('chat.modals.submit')}</Button>
             </div>
           </Form.Group>
         </Form>

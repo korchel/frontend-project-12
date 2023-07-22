@@ -9,29 +9,31 @@ import axios from 'axios';
 import {
   Container, Row, Col, Card, Image,
 } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import image from '../assets/signup.jpg';
 import routes from '../routes.js';
 import useAuth from '../hooks/useAuth.js';
 
-const signupSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, 'Минимум 3 символа')
-    .max(20, 'Максимум 20 символов')
-    .required('Обязательное поле'),
-  password: Yup.string()
-    .min(6, 'Минимум 6 символов')
-    .max(14, 'Максимум 14 символов')
-    .required('Обязательное поле'),
-  passwordConfirmation: Yup.string()
-    .required('Обязательное поле')
-    .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать!'),
-});
-
 const SignupPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const auth = useAuth();
   const [signupFailed, setSignupFailed] = useState(false);
+
+  const signupSchema = Yup.object().shape({
+    username: Yup.string()
+      .min(3, t('signup.usernameLength'))
+      .max(20, t('signup.usernameLength'))
+      .required(t('signup.requiredField')),
+    password: Yup.string()
+      .min(6, t('signup.usernameLength'))
+      .max(14, t('signup.usernameLength'))
+      .required(t('signup.requiredField')),
+    passwordConfirmation: Yup.string()
+      .required(t('signup.requiredField'))
+      .oneOf([Yup.ref('password'), null], t('signup.passwordsMatch')),
+  });
 
   return (
     <Container fluid className="h-100">
@@ -72,11 +74,11 @@ const SignupPage = () => {
                 validationSchema={signupSchema}
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
-                  <h1 className="text-center mb-4">Регистрация</h1>
+                  <h1 className="text-center mb-4">{t('signup.registration')}</h1>
                   <Field
                     type="text"
                     name="username"
-                    placeholder="Имя пользователя"
+                    placeholder={t('signup.username')}
                     className="form-control form-floating mb-3"
                   />
                   <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
@@ -84,16 +86,21 @@ const SignupPage = () => {
                     type="password"
                     name="password"
                     className="form-control form-floating mb-3"
-                    placeholder="Пароль"
+                    placeholder={t('signup.password')}
                   />
                   <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
                   <Field
                     type="password"
                     name="passwordConfirmation"
                     className="form-control form-floating mb-3"
-                    placeholder="Подтвердите пароль"
+                    placeholder={t('signup.passwordConfirm')}
                   />
-                  <button type="submit" className="btn btn-outline-primary w-100 mb-3">Зарегестрироваться</button>
+                  <button 
+                    type="submit" 
+                    className="btn btn-outline-primary w-100 mb-3"
+                  >
+                    {t('signup.signup')}
+                  </button>
                 </Form>
               </Formik>
             </Card.Body>

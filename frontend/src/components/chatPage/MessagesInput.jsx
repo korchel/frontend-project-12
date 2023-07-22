@@ -3,12 +3,13 @@ import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
-import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import useChatWS from '../../hooks/useChatWS';
 
 const MessagesInput = ({ currentChannelId }) => {
   const inputRef = useRef(null);
+  const { t } = useTranslation();
   const { sendMessage } = useChatWS();
   const { username } = JSON.parse(localStorage.getItem('userId'));
 
@@ -36,7 +37,7 @@ const MessagesInput = ({ currentChannelId }) => {
             className="border-0 p-0 ps-2"
             type="text"
             name="message"
-            placeholder='Введите сообщение'
+            placeholder={t('chat.messages.enterMessage')}
             aria-label='Новое сообщение'
             value={formik.values.message}
             onChange={formik.handleChange}

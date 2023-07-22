@@ -1,19 +1,20 @@
-/* eslint-disable functional/no-expression-statements */
+/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { io } from 'socket.io-client';
+
 
 import './index.css';
-import App from './App';
 import store from './slices/index.js';
+import init from './init';
 
-const app = () => {
-  const webSocket = io();
+const app = async () => {
+  
   const root = ReactDOM.createRoot(document.getElementById('root'));
+  const vdom = await init();
   root.render(
     <Provider store={store}>
-      <App webSocket={webSocket} />
+      {vdom}
     </Provider>,
   );
 };
