@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { Form, Button, InputGroup } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
+import leoProfanity from 'leo-profanity';
 
 import useChatWS from '../../hooks/useChatWS';
 
@@ -16,8 +17,9 @@ const MessagesInput = ({ currentChannelId }) => {
   const formik = useFormik({
     initialValues: {message: ''},
     onSubmit: ({message}, actions) => {
+      const filteredMessage = leoProfanity.clean(message);
       const newMessage = {
-        body: message,
+        body: filteredMessage,
         channelId: currentChannelId,
         username,
       };

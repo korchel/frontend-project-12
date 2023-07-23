@@ -3,6 +3,7 @@ import i18next from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
+import leoProfanity from 'leo-profanity';
 
 import resources from './locales/index';
 import App from './App';
@@ -22,6 +23,11 @@ const init = async () => {
     .init(options);
 
   const webSocket = io();
+
+  const enDictionary = leoProfanity.getDictionary('en');
+  const ruDictionary = leoProfanity.getDictionary('ru');
+  leoProfanity.add(enDictionary);
+  leoProfanity.add(ruDictionary);
 
   webSocket.on("connect", () => {
     console.log('webSocket connected', webSocket.connected);
