@@ -15,13 +15,14 @@ const MessagesInput = ({ currentChannelId }) => {
 
   const formik = useFormik({
     initialValues: {message: ''},
-    onSubmit: ({message}) => {
+    onSubmit: ({message}, actions) => {
       const newMessage = {
         body: message,
         channelId: currentChannelId,
         username,
       };
       sendMessage(newMessage);
+      actions.resetForm();
     }
   });
 

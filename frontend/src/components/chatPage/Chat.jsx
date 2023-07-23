@@ -36,7 +36,6 @@ const Chat = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [fetched, setFetched] = useState(false);
 
   const modalType = useSelector((state) => state.modalsReducer.type);
 
@@ -55,7 +54,7 @@ const Chat = () => {
         }
         return;
       });
-  });
+  }, []);
 
   const showModal = (type, id = null) => {
     dispatch(openModal({type, id}));

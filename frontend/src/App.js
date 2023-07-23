@@ -7,8 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import Header from './components/Header';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-toastify/dist/ReactToastify.css';
 import Chat from './components/chatPage/Chat';
 import NotFoundPage from './components/NotFoundPage';
 import AuthProvider from './contexts/AuthContext.jsx';
