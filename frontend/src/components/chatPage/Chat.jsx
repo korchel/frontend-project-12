@@ -1,6 +1,7 @@
-/* eslint-disable */
-
-import React, { useEffect, useState } from 'react';
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-conditional-statements */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +14,6 @@ import Channels from './Channels.jsx';
 import Messages from './Messages.jsx';
 import getModal from '../modals/index.js';
 import { openModal } from '../../slices/modalsSlice.js';
-import useAuth from '../../hooks/useAuth.js';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -33,7 +33,6 @@ const renderModal = (type) => {
 };
 
 const Chat = () => {
-  const auth = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -50,20 +49,18 @@ const Chat = () => {
       .catch((error) => {
         if (error.isAxiosError && error.response.status === 401) {
           navigate('/login');
-          return;
         }
-        return;
       });
   }, []);
 
   const showModal = (type, id = null) => {
-    dispatch(openModal({type, id}));
+    dispatch(openModal({ type, id }));
   };
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
       <Row className="h-100 bg-white flex-md-row">
-        <Channels showModal={showModal}/>
+        <Channels showModal={showModal} />
         <Messages />
       </Row>
       {renderModal(modalType)}

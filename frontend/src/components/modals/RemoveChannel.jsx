@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-conditional-statements */
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,7 +18,7 @@ const RemoveChannel = () => {
   const notify = (status) => {
     if (status === 'ok') {
       toast.success(t('chat.modals.channelRemoved'));
-    } 
+    }
     if (status !== 'ok') {
       toast.warning(t('chat.modals.channelNotRemoved'));
     }
@@ -25,7 +26,7 @@ const RemoveChannel = () => {
 
   const handleDelete = () => {
     deleteChannel(removedChannelId, notify);
-    dispatch(closeModal())
+    dispatch(closeModal());
   };
 
   const hideModal = () => {

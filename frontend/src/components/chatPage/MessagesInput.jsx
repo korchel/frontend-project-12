@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable functional/no-expression-statements */
 import React, { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Form, Button, InputGroup } from 'react-bootstrap';
@@ -15,8 +15,8 @@ const MessagesInput = ({ currentChannelId }) => {
   const { username } = JSON.parse(localStorage.getItem('userId'));
 
   const formik = useFormik({
-    initialValues: {message: ''},
-    onSubmit: ({message}, actions) => {
+    initialValues: { message: '' },
+    onSubmit: ({ message }, actions) => {
       const filteredMessage = leoProfanity.clean(message);
       const newMessage = {
         body: filteredMessage,
@@ -25,7 +25,7 @@ const MessagesInput = ({ currentChannelId }) => {
       };
       sendMessage(newMessage);
       actions.resetForm();
-    }
+    },
   });
 
   useEffect(() => {
@@ -41,18 +41,22 @@ const MessagesInput = ({ currentChannelId }) => {
             type="text"
             name="message"
             placeholder={t('chat.messages.enterMessage')}
-            aria-label='Новое сообщение'
+            aria-label="Новое сообщение"
             value={formik.values.message}
             onChange={formik.handleChange}
             ref={inputRef}
           />
-            <Button type="submit" variant="link" className="btn-group-vertical text-dark">
-              <ArrowRightSquare size={20} />
-            </Button>
+          <Button
+            type="submit"
+            variant="link"
+            className="btn-group-vertical text-dark"
+          >
+            <ArrowRightSquare size={20} />
+          </Button>
         </InputGroup>
       </Form>
     </div>
-  )
+  );
 };
 
 export default MessagesInput;

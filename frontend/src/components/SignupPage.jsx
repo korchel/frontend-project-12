@@ -1,8 +1,9 @@
-/* eslint-disable */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-conditional-statements */
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
-  Formik, Form, Field, ErrorMessage
+  Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -49,7 +50,6 @@ const SignupPage = () => {
                   username: '',
                   password: '',
                   passwordConfirmation: '',
-
                 }}
                 onSubmit={({ username, password }, actions) => {
                   setSignupFailed(false);
@@ -58,7 +58,6 @@ const SignupPage = () => {
                     password,
                   })
                     .then((response) => {
-                      console.log(response)
                       localStorage.setItem('userId', JSON.stringify(response.data));
                       auth.logIn();
                       navigate('/');
@@ -67,9 +66,7 @@ const SignupPage = () => {
                       actions.setSubmitting(false);
                       if (error.isAxiosError && error.response.status === 409) {
                         setSignupFailed(true);
-                        return;
                       }
-                      return;
                     });
                 }}
                 validationSchema={signupSchema}
@@ -96,12 +93,14 @@ const SignupPage = () => {
                     className="form-control form-floating mb-3"
                     placeholder={t('signup.passwordConfirm')}
                   />
-                  {signupFailed && 
-                    <p className="feedback m-0 small text-danger">
-                      {t('signup.userExists')}
-                    </p>}
-                  <button 
-                    type="submit" 
+                  {signupFailed
+                    && (
+                      <p className="feedback m-0 small text-danger">
+                        {t('signup.userExists')}
+                      </p>
+                    )}
+                  <button
+                    type="submit"
                     className="btn btn-outline-primary w-100 mb-3"
                   >
                     {t('signup.signup')}

@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-disable functional/no-expression-statements */
+import React from 'react';
 import i18next from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
@@ -29,7 +30,7 @@ const init = async () => {
   leoProfanity.add(enDictionary);
   leoProfanity.add(ruDictionary);
 
-  webSocket.on("connect", () => {
+  webSocket.on('connect', () => {
     console.log('webSocket connected', webSocket.connected);
   });
   webSocket.on('newMessage', (payload) => {
@@ -42,9 +43,8 @@ const init = async () => {
     store.dispatch(removeChannel(payload.id));
   });
   webSocket.on('renameChannel', (payload) => {
-    store.dispatch(updateChannel({ id: payload.id, changes: { name: payload.name }}));
+    store.dispatch(updateChannel({ id: payload.id, changes: { name: payload.name } }));
   });
-
 
   return (
     <Provider store={store}>

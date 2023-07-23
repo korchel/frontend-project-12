@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-conditional-statements */
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -24,7 +25,7 @@ const AddChannel = () => {
   const notify = (status) => {
     if (status === 'ok') {
       toast.success(t('chat.modals.channelCreated'));
-    } 
+    }
     if (status !== 'ok') {
       toast.warning(t('chat.modals.channelNotCreated'));
     }

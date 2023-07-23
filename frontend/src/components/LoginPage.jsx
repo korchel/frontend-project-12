@@ -1,8 +1,9 @@
-/* eslint-disable */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-conditional-statements */
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
-  Formik, Form, Field, ErrorMessage
+  Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -58,9 +59,7 @@ const LoginPage = () => {
                       actions.setSubmitting(false);
                       if (error.isAxiosError && error.response.status === 401) {
                         setauthFailed(true);
-                        return;
                       }
-                      return;
                     });
                 }}
                 validationSchema={loginSchema}
@@ -81,10 +80,12 @@ const LoginPage = () => {
                     className="form-control form-floating mb-3"
                   />
                   <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
-                  {authFailed && 
-                    <p className="feedback m-0 small text-danger">
-                      {t('login.wrongUsernameAndPassword')}
-                    </p>}
+                  {authFailed
+                    && (
+                      <p className="feedback m-0 small text-danger">
+                        {t('login.wrongUsernameAndPassword')}
+                      </p>
+                    )}
                   <button type="submit" className="btn btn-outline-primary w-100 mb-3">{t('login.signin')}</button>
                 </Form>
               </Formik>

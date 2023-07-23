@@ -1,7 +1,9 @@
-/* eslint-disable */
+/* eslint-disable functional/no-expression-statements */
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Col, Button, Dropdown, ButtonGroup } from 'react-bootstrap';
+import {
+  Col, Button, Dropdown, ButtonGroup,
+} from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 
@@ -15,7 +17,7 @@ const Channel = ({ channel, changeChannel, showModal }) => {
       {channel.removable
         ? (
           <Dropdown key={channel.id} as={ButtonGroup} className="d-flex">
-            <Button 
+            <Button
               type="button"
               onClick={() => changeChannel(channel.id)}
               variant="light"
@@ -44,8 +46,7 @@ const Channel = ({ channel, changeChannel, showModal }) => {
           >
             {`# ${channel.name}`}
           </Button>
-        )
-      }
+        )}
     </li>
   );
 };
@@ -53,7 +54,7 @@ const Channel = ({ channel, changeChannel, showModal }) => {
 const Channels = ({ showModal }) => {
   const channels = useSelector(selectors.selectAll);
   const dispatch = useDispatch();
-  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
+  /* const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId); */
   const { t } = useTranslation();
 
   const changeChannel = (id) => {

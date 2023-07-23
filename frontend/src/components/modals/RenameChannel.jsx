@@ -1,4 +1,5 @@
-/* eslint-disable */
+/* eslint-disable functional/no-expression-statements */
+/* eslint-disable functional/no-conditional-statements */
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -24,7 +25,7 @@ const RenameChannel = () => {
   const notify = (status) => {
     if (status === 'ok') {
       toast.success(t('chat.modals.channelRenamed'));
-    } 
+    }
     if (status !== 'ok') {
       toast.warning(t('chat.modals.channelNotRenamed'));
     }
@@ -39,7 +40,7 @@ const RenameChannel = () => {
   });
 
   const formik = useFormik({
-    initialValues: {newName: ''},
+    initialValues: { newName: '' },
     onSubmit: ({ newName }) => {
       renameChannel(newName, renamedChannelId, notify);
       dispatch(closeModal());
@@ -67,12 +68,16 @@ const RenameChannel = () => {
               className="mb-2"
               onChange={formik.handleChange}
               value={formik.values.newName}
-              name='newName'
+              name="newName"
               ref={inputRef}
             />
-            <p className="feedback m-0 small text-danger">{formik.errors.newName && formik.touched.newName ? formik.errors.newName : ''}</p>
+            <p className="feedback m-0 small text-danger">
+              {formik.errors.newName
+                && formik.touched.newName
+                ? formik.errors.newName : ''}
+            </p>
             <div className="d-flex justify-content-end">
-              <Button 
+              <Button
                 onClick={hideModal}
                 className="me-2"
                 variant="secondary"

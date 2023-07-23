@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
@@ -10,10 +9,11 @@ import MessagesHeader from './MessagesHeader.jsx';
 import MessagesBox from './MessagesBox.jsx';
 import MessagesInput from './MessagesInput.jsx';
 
-
 const Messages = () => {
-  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
-  const currentChannel = useSelector((state) => channelsSelectors.selectById(state, currentChannelId));
+  const currentChannelId = useSelector((state) => (
+    state.channelsReducer.currentChannelId));
+  const currentChannel = useSelector((state) => (
+    channelsSelectors.selectById(state, currentChannelId)));
 
   const messages = useSelector(messagesSelectors.selectAll);
 
@@ -26,8 +26,8 @@ const Messages = () => {
           currentChannelName={currentChannel?.name}
           numberOfMessages={currentsMessages?.length}
         />
-        <MessagesBox messages={currentsMessages}/>
-        <MessagesInput currentChannelId={currentChannelId}/>
+        <MessagesBox messages={currentsMessages} />
+        <MessagesInput currentChannelId={currentChannelId} />
       </div>
     </Col>
   );
