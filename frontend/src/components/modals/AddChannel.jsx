@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -20,7 +19,7 @@ const AddChannel = () => {
   const dispatch = useDispatch();
   const channels = useSelector(selectors.selectAll).map((channel) => channel.name);
 
-  const getValidationSchema = (channels) => Yup.object().shape({
+  const getValidationSchema = () => Yup.object().shape({
     newChannelsName: Yup.string()
       .required()
       .min(3, 'Минимум 3 символа')
@@ -29,7 +28,7 @@ const AddChannel = () => {
   });
 
   const formik = useFormik({
-    initialValues: {newChannelsName: ''},
+    initialValues: { newChannelsName: '' },
     onSubmit: ({ newChannelsName }) => {
       const newChannel = {
         name: newChannelsName,
@@ -60,7 +59,7 @@ const AddChannel = () => {
               className="mb-2"
               onChange={formik.handleChange}
               value={formik.values.newChannelsName}
-              name='newChannelsName'
+              name="newChannelsName"
               ref={inputRef}
             />
             <p className="feedback m-0 small text-danger">{formik.errors.newChannelsName && formik.touched.newChannelsName ? formik.errors.newChannelsName : ''}</p>

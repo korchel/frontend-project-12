@@ -19,6 +19,7 @@ const ru = {
       passwordsMatch: 'Пароли должны совпадать!',
       usernameLength: 'От 3 до 20 символов',
       passwordLength: 'От 6 до 14 символов',
+      userExists: 'Такой пользователь уже существует',
     },
     notFound: {
       pageNotFound: 'Страница не найдена',
@@ -50,6 +51,8 @@ const ru = {
         submit: 'Отправить',
         remove: 'Удалить',
         areYouSure: 'Вы уверенны?',
+        nameLength: 'От 3 до 15 символов',
+        nameExists: 'Имя уже существует',
       },
     },
   },

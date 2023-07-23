@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React from 'react';
 import {
-  BrowserRouter, Routes, Route, Link, Navigate
+  BrowserRouter, Routes, Route, Navigate,
 } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -11,17 +10,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Chat from './components/chatPage/Chat';
 import NotFoundPage from './components/NotFoundPage';
 import AuthProvider from './contexts/AuthContext.jsx';
-import ChatWSProvider from './contexts/ChatWSContext';
 import useAuth from './hooks/useAuth';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();
   return (
     auth.loggedIn ? children : <Navigate to="/login" />
-  )
-}
+  );
+};
 
-const App = ({ webSocket }) => (
+const App = () => (
   <AuthProvider>
     <BrowserRouter>
       <div className="d-flex flex-column h-100">
@@ -30,11 +28,9 @@ const App = ({ webSocket }) => (
           <Route
             path="/"
             element={(
-              <ChatWSProvider webSocket={webSocket}>
-                <PrivateRoute>
-                  <Chat />
-                </PrivateRoute>
-              </ChatWSProvider>
+              <PrivateRoute>
+                <Chat />
+              </PrivateRoute>
             )}
           />
           <Route path="*" element={<NotFoundPage />} />

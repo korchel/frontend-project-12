@@ -58,6 +58,7 @@ const SignupPage = () => {
                     password,
                   })
                     .then((response) => {
+                      console.log(response)
                       localStorage.setItem('userId', JSON.stringify(response.data));
                       auth.logIn();
                       navigate('/');
@@ -95,6 +96,10 @@ const SignupPage = () => {
                     className="form-control form-floating mb-3"
                     placeholder={t('signup.passwordConfirm')}
                   />
+                  {signupFailed && 
+                    <p className="feedback m-0 small text-danger">
+                      {t('signup.userExists')}
+                    </p>}
                   <button 
                     type="submit" 
                     className="btn btn-outline-primary w-100 mb-3"

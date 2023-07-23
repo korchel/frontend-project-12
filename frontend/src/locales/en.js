@@ -20,6 +20,7 @@ const en = {
       passwordsMatch: 'Passwords do not match',
       usernameLength: '3 to 20 characters',
       passwordLength: '6 to 14 characters',
+      userExists: 'User exists',
     },
     notFound: {
       pageNotFound: 'Page not found',
@@ -50,6 +51,8 @@ const en = {
         submit: 'Submit',
         remove: 'Remove',
         areYouSure: 'Are you sure?',
+        nameLength: '3 to 15 characters',
+        nameExists: 'Name already exists',
       },
     },
   },

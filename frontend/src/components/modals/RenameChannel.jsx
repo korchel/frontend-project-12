@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -13,22 +12,21 @@ import useChatWS from '../../hooks/useChatWS.js';
 import { selectors } from '../../slices/channelsSlice.js';
 import { closeModal } from '../../slices/modalsSlice.js';
 
-const getValidationSchema = (channels) => Yup.object().shape({
-  newName: Yup.string()
-    .required()
-    .min(3, 'Минимум 3 символа')
-    .max(15, 'Минимум 15 символов')
-    .notOneOf(channels, 'Имя уже существует'),
-});
-
 const RenameChannel = () => {
   const { t } = useTranslation();
   const { renameChannel } = useChatWS();
   const dispatch = useDispatch();
   const inputRef = useRef();
   const channels = useSelector(selectors.selectAll).map((channel) => channel.name);
-  console.log(channels)
   const renamedChannelId = useSelector((state) => state.modalsReducer.channelId);
+
+  const getValidationSchema = () => Yup.object().shape({
+    newName: Yup.string()
+      .required()
+      .min(3, t('chat.modals.nameLength'))
+      .max(15, t('chat.modals.nameLength'))
+      .notOneOf(channels, t('chat.modals.nameExists')),
+  });
 
   const formik = useFormik({
     initialValues: {newName: ''},
@@ -64,7 +62,13 @@ const RenameChannel = () => {
             />
             <p className="feedback m-0 small text-danger">{formik.errors.newName && formik.touched.newName ? formik.errors.newName : ''}</p>
             <div className="d-flex justify-content-end">
-              <Button onClick={hideModal} className="me-2" variant="secondary">{t('chat.modals.cancel')}</Button>
+              <Button 
+                onClick={hideModal}
+                className="me-2"
+                variant="secondary"
+              >
+                {t('chat.modals.cancel')}
+              </Button>
               <Button type="submit" variant="primary">{t('chat.modals.submit')}</Button>
             </div>
           </Form.Group>
