@@ -12,25 +12,33 @@ const ChatWSProvider = ({ webSocket, children }) => {
     webSocket.emit('newMessage', message);
   };
 
-  const addChannel = (channel) => {
+  const addChannel = (channel, notify) => {
     webSocket.emit('newChannel', channel, (response) => {
-      dispatch(setCurrentChannelId(response.data.id));
+      const { status, data } = response;
+      if (status === 'ok') {
+        dispatch(setCurrentChannelId(data.id));
+      }
+      notify(status);
     });
   };
 
-  const deleteChannel = (id) => {
+  const deleteChannel = (id, notify) => {
     webSocket.emit('removeChannel', { id }, (response) => {
+      const { status } = response;
       if (response.status === 'ok') {
         dispatch(removeChannel(id));
       }
+      notify(status);
     });
   };
 
-  const renameChannel = (newName, id) => {
+  const renameChannel = (newName, id, notify) => {
     webSocket.emit('renameChannel', { newName, id }, (response) => {
-      if (response.status === 'ok') {
+      const { status } = response;
+      if (status === 'ok') {
         dispatch(updateChannel({ id, changes: { name: newName } }));
       }
+      notify(status);
     });
   };
 

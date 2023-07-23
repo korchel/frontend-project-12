@@ -3,6 +3,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import useChatWS from '../../hooks/useChatWS.js';
 import { closeModal } from '../../slices/modalsSlice.js';
@@ -13,8 +14,17 @@ const RemoveChannel = () => {
   const removedChannelId = useSelector((state) => state.modalsReducer.channelId);
   const dispatch = useDispatch();
 
+  const notify = (status) => {
+    if (status === 'ok') {
+      toast.success(t('chat.modals.channelRemoved'));
+    } 
+    if (status !== 'ok') {
+      toast.warning(t('chat.modals.channelNotRemoved'));
+    }
+  };
+
   const handleDelete = () => {
-    deleteChannel(removedChannelId);
+    deleteChannel(removedChannelId, notify);
     dispatch(closeModal())
   };
 

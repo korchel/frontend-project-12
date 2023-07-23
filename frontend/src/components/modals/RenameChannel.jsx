@@ -7,6 +7,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import useChatWS from '../../hooks/useChatWS.js';
 import { selectors } from '../../slices/channelsSlice.js';
@@ -20,6 +21,15 @@ const RenameChannel = () => {
   const channels = useSelector(selectors.selectAll).map((channel) => channel.name);
   const renamedChannelId = useSelector((state) => state.modalsReducer.channelId);
 
+  const notify = (status) => {
+    if (status === 'ok') {
+      toast.success(t('chat.modals.channelRenamed'));
+    } 
+    if (status !== 'ok') {
+      toast.warning(t('chat.modals.channelNotRenamed'));
+    }
+  };
+
   const getValidationSchema = () => Yup.object().shape({
     newName: Yup.string()
       .required()
@@ -31,7 +41,7 @@ const RenameChannel = () => {
   const formik = useFormik({
     initialValues: {newName: ''},
     onSubmit: ({ newName }) => {
-      renameChannel(newName, renamedChannelId);
+      renameChannel(newName, renamedChannelId, notify);
       dispatch(closeModal());
     },
     validationSchema: getValidationSchema(channels),

@@ -7,6 +7,7 @@ import {
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import useChatWS from '../../hooks/useChatWS.js';
 import { selectors } from '../../slices/channelsSlice.js';
@@ -15,9 +16,19 @@ import { closeModal } from '../../slices/modalsSlice.js';
 const AddChannel = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
-  const { addChannel } = useChatWS();
   const dispatch = useDispatch();
+
+  const { addChannel } = useChatWS();
   const channels = useSelector(selectors.selectAll).map((channel) => channel.name);
+
+  const notify = (status) => {
+    if (status === 'ok') {
+      toast.success(t('chat.modals.channelCreated'));
+    } 
+    if (status !== 'ok') {
+      toast.warning(t('chat.modals.channelNotCreated'));
+    }
+  };
 
   const getValidationSchema = () => Yup.object().shape({
     newChannelsName: Yup.string()
@@ -33,7 +44,7 @@ const AddChannel = () => {
       const newChannel = {
         name: newChannelsName,
       };
-      addChannel(newChannel);
+      addChannel(newChannel, notify);
       dispatch(closeModal());
     },
     validationSchema: getValidationSchema(channels),
