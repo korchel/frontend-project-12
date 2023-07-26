@@ -27,7 +27,7 @@ const AddChannel = () => {
       toast.success(t('chat.modals.channelCreated'));
     }
     if (status !== 'ok') {
-      toast.warning(t('chat.modals.channelNotCreated'));
+      toast.warning(t('chat.modals.connectionError'));
     }
   };
 

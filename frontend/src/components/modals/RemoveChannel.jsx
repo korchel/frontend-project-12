@@ -20,7 +20,7 @@ const RemoveChannel = () => {
       toast.success(t('chat.modals.channelRemoved'));
     }
     if (status !== 'ok') {
-      toast.warning(t('chat.modals.channelNotRemoved'));
+      toast.warning(t('chat.modals.connectionError'));
     }
   };
 

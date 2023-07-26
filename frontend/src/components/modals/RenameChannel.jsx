@@ -27,7 +27,7 @@ const RenameChannel = () => {
       toast.success(t('chat.modals.channelRenamed'));
     }
     if (status !== 'ok') {
-      toast.warning(t('chat.modals.channelNotRenamed'));
+      toast.warning(t('chat.modals.connectionError'));
     }
   };
 
