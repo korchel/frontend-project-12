@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-expression-statements */
 /* eslint-disable functional/no-conditional-statements */
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Formik, Form, Field, ErrorMessage,
@@ -18,9 +18,14 @@ import useAuth from '../hooks/useAuth.js';
 
 const SignupPage = () => {
   const { t } = useTranslation();
+  const ref = useRef(null);
   const navigate = useNavigate();
   const auth = useAuth();
   const [signupFailed, setSignupFailed] = useState(false);
+
+  useEffect(() => {
+    ref.current.focus();
+  }, []);
 
   const signupSchema = Yup.object().shape({
     username: Yup.string()
@@ -78,6 +83,7 @@ const SignupPage = () => {
                     name="username"
                     placeholder={t('signup.username')}
                     className="form-control form-floating mb-3"
+                    innerRef={ref}
                   />
                   <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
                   <Field
