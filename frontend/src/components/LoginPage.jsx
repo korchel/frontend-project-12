@@ -71,19 +71,23 @@ const LoginPage = () => {
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
                   <h1 className="text-center mb-4">{t('login.signin')}</h1>
+                  <label style={{ display: 'none' }} htmlFor="username">{t('login.username')}</label>
                   <Field
                     type="text"
                     name="username"
                     placeholder={t('login.username')}
                     className="form-control form-floating mb-3"
                     innerRef={ref}
+                    id="username"
                   />
                   <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
+                  <label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</label>
                   <Field
                     type="password"
                     name="password"
                     placeholder={t('login.password')}
                     className="form-control form-floating mb-3"
+                    id="password"
                   />
                   <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
                   {authFailed

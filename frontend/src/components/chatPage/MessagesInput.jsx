@@ -37,12 +37,13 @@ const MessagesInput = ({ currentChannelId }) => {
     <div className="mt-auto px-5 py-3">
       <Form className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
         <InputGroup>
+          <label style={{ display: 'none' }} htmlFor="message">{t('chat.messages.newMessage')}</label>
           <Form.Control
             className="border-0 p-0 ps-2"
             type="text"
             name="message"
             placeholder={t('chat.messages.enterMessage')}
-            aria-label="Новое сообщение"
+            id="message"
             value={formik.values.message}
             onChange={formik.handleChange}
             ref={inputRef}

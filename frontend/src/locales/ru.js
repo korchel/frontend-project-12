@@ -42,6 +42,7 @@ const ru = {
           count_many: '{{count}} сообщений',
         },
         enterMessage: 'Введите сообщение',
+        newMessage: 'Новое сообщение',
       },
       modals: {
         addChannel: 'Добавить канал',

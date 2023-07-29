@@ -67,12 +67,14 @@ const AddChannel = () => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
+            <label style={{ display: 'none' }} htmlFor="newChannelsName">{t('chat.modals.addChannel')}</label>
             <FormControl
               className="mb-2"
               onChange={formik.handleChange}
               value={formik.values.newChannelsName}
               name="newChannelsName"
               ref={inputRef}
+              id="newChannelsName"
             />
             <p className="feedback m-0 small text-danger">{formik.errors.newChannelsName && formik.touched.newChannelsName ? formik.errors.newChannelsName : ''}</p>
             <div className="d-flex justify-content-end">

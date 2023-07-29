@@ -78,26 +78,32 @@ const SignupPage = () => {
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
                   <h1 className="text-center mb-4">{t('signup.registration')}</h1>
+                  <label style={{ display: 'none' }} htmlFor="username">{t('signup.username')}</label>
                   <Field
                     type="text"
                     name="username"
                     placeholder={t('signup.username')}
                     className="form-control form-floating mb-3"
                     innerRef={ref}
+                    id="username"
                   />
                   <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
+                  <label style={{ display: 'none' }} htmlFor="password">{t('signup.password')}</label>
                   <Field
                     type="password"
                     name="password"
                     className="form-control form-floating mb-3"
                     placeholder={t('signup.password')}
+                    id="password"
                   />
                   <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
+                  <label style={{ display: 'none' }} htmlFor="passwordConfirm">{t('signup.passwordConfirm')}</label>
                   <Field
                     type="password"
-                    name="passwordConfirmation"
+                    name="passwordConfirm"
                     className="form-control form-floating mb-3"
                     placeholder={t('signup.passwordConfirm')}
+                    id="passwordConfirm"
                   />
                   {signupFailed
                     && (

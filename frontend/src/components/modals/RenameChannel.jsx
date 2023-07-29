@@ -64,12 +64,14 @@ const RenameChannel = () => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
+            <label style={{ display: 'none' }} htmlFor="newName">{t('chat.modals.renameChannel')}</label>
             <FormControl
               className="mb-2"
               onChange={formik.handleChange}
               value={formik.values.newName}
               name="newName"
               ref={inputRef}
+              id="newName"
             />
             <p className="feedback m-0 small text-danger">
               {formik.errors.newName
