@@ -1,6 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable react/jsx-no-constructed-context-values */
 import React, { createContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { setCurrentChannelId, removeChannel, updateChannel } from '../slices/channelsSlice';

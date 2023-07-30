@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/no-conditional-statements */
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {

@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/no-conditional-statements */
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {

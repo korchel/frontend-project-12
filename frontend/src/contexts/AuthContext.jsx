@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable react/jsx-no-constructed-context-values */
 import { createContext, useState } from 'react';
 
 export const AuthContext = createContext({});

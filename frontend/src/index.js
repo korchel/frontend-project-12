@@ -1,4 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import ReactDOM from 'react-dom/client';

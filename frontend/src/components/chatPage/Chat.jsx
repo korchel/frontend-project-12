@@ -1,11 +1,9 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable functional/no-conditional-statements */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
+
 
 import routes from '../../routes.js';
 import { addMessages } from '../../slices/messagesSlice.js';

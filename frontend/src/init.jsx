@@ -1,5 +1,3 @@
-/* eslint-disable functional/no-expression-statements */
-/* eslint-disable */
 import React from 'react';
 import i18next from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
