@@ -2,4 +2,20 @@
 
 [![Actions Status](https://github.com/korchel/frontend-project-12/workflows/hexlet-check/badge.svg)](https://github.com/korchel/frontend-project-12/actions)
 
-[chat](frontend-project-12-production-c2a6.up.railway.app)
+_____
+
+## hexlet-chat
+
+hexlet-chat is a simplified version of Slack Chat
+
+[deployed on render.com](https://hexlet-chat-huhq.onrender.com)
+
+_____
+
+### Build
+
+npm ci && npm run build
+
+### Start
+
+npm run start
