@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -29,7 +29,7 @@ const LoginPage = () => {
     username: Yup.string()
       .required(t('login.requiredField')),
     password: Yup.string()
-      .required('Обязательное поле'),
+      .required(t('login.requiredField')),
   });
 
   return (
@@ -101,7 +101,7 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span className="px-1">{t('login.noAccountYet')}</span>
-                <Link to="/signup">{t('login.signup')}</Link>
+                <a href="/signup">{t('login.signup')}</a>
               </div>
             </Card.Footer>
           </Card>
