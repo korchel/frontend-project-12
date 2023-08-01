@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Formik, Form, Field,
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -78,7 +78,7 @@ const LoginPage = () => {
                     innerRef={ref}
                     id="username"
                   />
-                  <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
+                  
                   <label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</label>
                   <Field
                     type="password"
@@ -87,7 +87,7 @@ const LoginPage = () => {
                     className="form-control form-floating mb-3"
                     id="password"
                   />
-                  <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
+                  
                   {authFailed
                     && (
                       <p className="feedback m-0 small text-danger">
@@ -101,7 +101,7 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span className="px-1">{t('login.noAccountYet')}</span>
-                <a href="/signup">{t('login.signup')}</a>
+                <Link to="/signup">{t('login.signup')}</Link>
               </div>
             </Card.Footer>
           </Card>
