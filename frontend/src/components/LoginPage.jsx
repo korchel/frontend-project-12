@@ -79,7 +79,6 @@ const LoginPage = () => {
                     innerRef={ref}
                     id="username"
                   />
-                  {/* пока не знаю, что делать с ErrorMessage, из-за них не проходят тесты */}
                   <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
                   <label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</label>
                   <Field
@@ -93,7 +92,7 @@ const LoginPage = () => {
                   {authFailed
                     && (
                       <p className="feedback m-0 small text-danger">
-                        {t('login.wrongUsernameAndPassword')}
+                        {t('login.wrongNameAndPassword')}
                       </p>
                     )}
                   <button type="submit" className="btn btn-outline-primary w-100 mb-3">{t('login.signin')}</button>
