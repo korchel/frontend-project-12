@@ -33,9 +33,9 @@ const SignupPage = () => {
     password: Yup.string()
       .min(6, t('signup.passwordLength'))
       .required(t('signup.requiredField')),
-    passwordConfirmation: Yup.string()
+    passwordConfirm: Yup.string()
       .required(t('signup.requiredField'))
-      .oneOf([Yup.ref('password'), null], t('signup.passwordsMatch')),
+      .oneOf([Yup.ref('password')], t('signup.passwordsMatch')),
   });
 
   return (
@@ -102,6 +102,7 @@ const SignupPage = () => {
                     placeholder={t('signup.passwordConfirm')}
                     id="passwordConfirm"
                   />
+                  <ErrorMessage name="passwordConfirm" component="p" className="feedback m-0 small text-danger" />
                   {signupFailed
                     && (
                       <p className="feedback m-0 small text-danger">
