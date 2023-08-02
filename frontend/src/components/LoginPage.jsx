@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
-  Formik, Form, Field,
+  Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -46,6 +46,7 @@ const LoginPage = () => {
                   username: '',
                   password: '',
                 }}
+                validateOnBlur={false}
                 onSubmit={({ username, password }, actions) => {
                   setauthFailed(false);
                   axios.post(routes.loginPath(), {
@@ -78,7 +79,8 @@ const LoginPage = () => {
                     innerRef={ref}
                     id="username"
                   />
-                  
+                  {/* пока не знаю, что делать с ErrorMessage, из-за них не проходят тесты */}
+                  <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
                   <label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</label>
                   <Field
                     type="password"
@@ -87,7 +89,7 @@ const LoginPage = () => {
                     className="form-control form-floating mb-3"
                     id="password"
                   />
-                  
+                  <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
                   {authFailed
                     && (
                       <p className="feedback m-0 small text-danger">

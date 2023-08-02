@@ -18,7 +18,7 @@ const ru = {
       requiredField: 'Обязательное поле',
       passwordsMatch: 'Пароли должны совпадать',
       usernameLength: 'От 3 до 20 символов',
-      passwordLength: 'От 6 до 14 символов',
+      passwordLength: 'Не менее 6 символов',
       userExists: 'Такой пользователь уже существует',
     },
     notFound: {

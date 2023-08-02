@@ -19,7 +19,7 @@ const en = {
       requiredField: 'Required field',
       passwordsMatch: 'Passwords do not match',
       usernameLength: '3 to 20 characters',
-      passwordLength: '6 to 14 characters',
+      passwordLength: 'At least 6 characters',
       userExists: 'User exists',
     },
     notFound: {

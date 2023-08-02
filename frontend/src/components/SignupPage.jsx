@@ -31,8 +31,7 @@ const SignupPage = () => {
       .max(20, t('signup.usernameLength'))
       .required(t('signup.requiredField')),
     password: Yup.string()
-      .min(6, t('signup.usernameLength'))
-      .max(14, t('signup.usernameLength'))
+      .min(6, t('signup.passwordLength'))
       .required(t('signup.requiredField')),
     passwordConfirmation: Yup.string()
       .required(t('signup.requiredField'))
