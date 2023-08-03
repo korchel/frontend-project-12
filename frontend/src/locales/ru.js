@@ -57,6 +57,8 @@ const ru = {
         channelCreated: 'Канал создан',
         channelRenamed: 'Канал переименован',
         connectionError: 'Ошибка соединения',
+        channelName: 'Имя канала',
+        manageChannels: 'Управление каналом',
       },
     },
   },

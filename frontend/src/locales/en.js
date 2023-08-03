@@ -57,6 +57,8 @@ const en = {
         channelRemoved: 'Channel has been removed',
         channelRenamed: 'Channel has been renamed',
         connectionError: 'Connection error',
+        channelName: 'Channel\'s name',
+        manageChannels: 'Channel management',
       },
     },
   },

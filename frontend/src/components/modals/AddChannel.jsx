@@ -65,7 +65,7 @@ const AddChannel = () => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <label style={{ display: 'none' }} htmlFor="newChannelsName">{t('chat.modals.addChannel')}</label>
+            <label style={{ display: 'none' }} htmlFor="newChannelsName">{t('chat.modals.channelName')}</label>
             <FormControl
               className="mb-2"
               onChange={formik.handleChange}
