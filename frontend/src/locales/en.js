@@ -35,6 +35,7 @@ const en = {
         channels: 'Channels',
         remove: 'Remove',
         rename: 'Rename',
+        manageChannels: 'Channel management',
       },
       messages: {
         quantity: {
@@ -58,7 +59,6 @@ const en = {
         channelRenamed: 'Channel has been renamed',
         connectionError: 'Connection error',
         channelName: 'Channel\'s name',
-        manageChannels: 'Channel management',
       },
     },
   },

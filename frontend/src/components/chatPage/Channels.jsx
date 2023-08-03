@@ -39,7 +39,7 @@ const Channel = ({
               variant={getVariant(channel.id)}
               split
             >
-              <span className="visually-hidden">{t('channels.manageChannels')}</span>
+              <span className="visually-hidden">{t('chat.channels.manageChannels')}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item onClick={() => showModal('remove', channel.id)}>{t('chat.channels.remove')}</Dropdown.Item>

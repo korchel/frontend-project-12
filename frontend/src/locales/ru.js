@@ -34,6 +34,7 @@ const ru = {
         channels: 'Каналы',
         remove: 'Удалить',
         rename: 'Переименовать',
+        manageChannels: 'Управление каналом',
       },
       messages: {
         quantity: {
@@ -58,7 +59,6 @@ const ru = {
         channelRenamed: 'Канал переименован',
         connectionError: 'Ошибка соединения',
         channelName: 'Имя канала',
-        manageChannels: 'Управление каналом',
       },
     },
   },
