@@ -80,6 +80,7 @@ const Channels = ({ showModal }) => {
           variant="group-vertical"
           className="p-0 text-primary"
         >
+          <span className="visually-hidden">+</span>
           <PlusSquare size="20" />
         </Button>
       </div>
