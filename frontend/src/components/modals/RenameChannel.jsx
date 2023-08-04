@@ -17,8 +17,11 @@ const RenameChannel = () => {
   const { renameChannel } = useChatWS();
   const dispatch = useDispatch();
   const inputRef = useRef();
-  const channels = useSelector(selectors.selectAll).map((channel) => channel.name);
+
+  const channels = useSelector(selectors.selectAll);
+  const channelsNames = channels.map((channel) => channel.name);
   const renamedChannelId = useSelector((state) => state.modalsReducer.channelId);
+  const [currentChannel] = channels.filter((channel) => channel.id === renamedChannelId);
 
   const notify = (status) => {
     if (status === 'ok') {
@@ -34,16 +37,16 @@ const RenameChannel = () => {
       .required()
       .min(3, t('chat.modals.nameLength'))
       .max(15, t('chat.modals.nameLength'))
-      .notOneOf(channels, t('chat.modals.nameExists')),
+      .notOneOf(channelsNames, t('chat.modals.nameExists')),
   });
 
   const formik = useFormik({
-    initialValues: { newName: '' },
+    initialValues: { newName: currentChannel.name },
     onSubmit: ({ newName }) => {
       renameChannel(newName, renamedChannelId, notify);
       dispatch(closeModal());
     },
-    validationSchema: getValidationSchema(channels),
+    validationSchema: getValidationSchema(),
   });
 
   const hideModal = () => {
@@ -51,7 +54,7 @@ const RenameChannel = () => {
   };
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current.select();
   }, []);
 
   return (
