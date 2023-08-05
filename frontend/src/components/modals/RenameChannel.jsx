@@ -36,7 +36,7 @@ const RenameChannel = () => {
     newName: Yup.string()
       .required()
       .min(3, t('chat.modals.nameLength'))
-      .max(15, t('chat.modals.nameLength'))
+      .max(20, t('chat.modals.nameLength'))
       .notOneOf(channelsNames, t('chat.modals.nameExists')),
   });
 

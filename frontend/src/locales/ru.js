@@ -53,7 +53,7 @@ const ru = {
         submit: 'Отправить',
         remove: 'Удалить',
         areYouSure: 'Вы уверенны?',
-        nameLength: 'От 3 до 15 символов',
+        nameLength: 'От 3 до 20 символов',
         nameExists: 'Имя уже существует',
         channelCreated: 'Канал создан',
         channelRenamed: 'Канал переименован',
