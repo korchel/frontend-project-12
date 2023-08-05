@@ -42,7 +42,7 @@ const RenameChannel = () => {
 
   const formik = useFormik({
     initialValues: { newName: renamedChannel.name },
-    onSubmit: ({ newName }, { setSubmitting }) => {
+    onSubmit: ({ newName }) => {
       renameChannel(newName, renamedChannelId, notify);
       dispatch(closeModal());
     },
