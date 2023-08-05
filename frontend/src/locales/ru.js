@@ -56,7 +56,7 @@ const ru = {
         nameLength: 'От 3 до 20 символов',
         nameExists: 'Имя уже существует',
         channelCreated: 'Канал создан',
-        channelRemoved: 'Канад удален',
+        channelRemoved: 'Канал удалён',
         channelRenamed: 'Канал переименован',
         connectionError: 'Ошибка соединения',
         channelName: 'Имя канала',
