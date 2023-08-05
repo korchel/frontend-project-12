@@ -20,6 +20,7 @@ plugins:
   - functional
 
 rules:
+  no-param-reassign: 0
   import/extensions: 0
   import/no-unresolved: 0
   import/no-anonymous-default-export: 0

@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 
-
 import routes from '../../routes.js';
 import { addMessages } from '../../slices/messagesSlice.js';
 import { addChannels, setCurrentChannelId } from '../../slices/channelsSlice.js';
@@ -49,7 +48,7 @@ const Chat = () => {
           navigate('/login');
         }
       });
-  }, []);
+  }, [dispatch, navigate]);
 
   const showModal = (type, id = null) => {
     dispatch(openModal({ type, id }));

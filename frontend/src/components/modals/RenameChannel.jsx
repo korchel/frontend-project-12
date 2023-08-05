@@ -45,7 +45,6 @@ const RenameChannel = () => {
     onSubmit: ({ newName }, { setSubmitting }) => {
       renameChannel(newName, renamedChannelId, notify);
       dispatch(closeModal());
-      setSubmitting(false)
     },
     validationSchema: getValidationSchema(),
   });
