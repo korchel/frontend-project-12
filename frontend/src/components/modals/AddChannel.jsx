@@ -73,6 +73,7 @@ const AddChannel = () => {
               name="newChannelsName"
               ref={inputRef}
               id="newChannelsName"
+              isInvalid={formik.touched.newChannelsName && !!formik.errors.newChannelsName}
             />
             <p className="feedback m-0 small text-danger">{formik.errors.newChannelsName && formik.touched.newChannelsName ? formik.errors.newChannelsName : ''}</p>
             <div className="d-flex justify-content-end">

@@ -76,6 +76,7 @@ const RenameChannel = () => {
               name="newName"
               ref={inputRef}
               id="newName"
+              isInvalid={formik.touched.newName && !!formik.errors.newName}
             />
             <p className="feedback m-0 small text-danger">
               {formik.errors.newName
