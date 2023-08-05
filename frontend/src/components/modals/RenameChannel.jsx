@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Modal, Form, Button, FormControl,
+  Modal, Form, Button, FormControl, FormLabel,
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -21,7 +21,7 @@ const RenameChannel = () => {
   const channels = useSelector(selectors.selectAll);
   const channelsNames = channels.map((channel) => channel.name);
   const renamedChannelId = useSelector((state) => state.modalsReducer.channelId);
-  /* const [renamedChannel] = channels.filter((channel) => channel.id === renamedChannelId); */
+  const [renamedChannel] = channels.filter((channel) => channel.id === renamedChannelId);
 
   const notify = (status) => {
     if (status === 'ok') {
@@ -41,7 +41,7 @@ const RenameChannel = () => {
   });
 
   const formik = useFormik({
-    initialValues: { newName: '' },
+    initialValues: { newName: renamedChannel.name },
     onSubmit: ({ newName }, { setSubmitting }) => {
       renameChannel(newName, renamedChannelId, notify);
       dispatch(closeModal());
@@ -66,7 +66,9 @@ const RenameChannel = () => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <label style={{ display: 'none' }} htmlFor="newName">{t('chat.modals.channelName')}</label>
+            <FormLabel className="visually-hidden" htmlFor="newName">
+              {t('chat.modals.channelName')}
+            </FormLabel>
             <FormControl
               className="mb-2"
               onChange={formik.handleChange}
