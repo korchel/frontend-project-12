@@ -31,11 +31,11 @@ const ChatWSProvider = ({ webSocket, children }) => {
     });
   };
 
-  const renameChannel = (newName, id, notify) => {
-    webSocket.emit('renameChannel', { newName, id }, (response) => {
+  const renameChannel = (name, id, notify) => {
+    webSocket.emit('renameChannel', { name, id }, (response) => {
       const { status } = response;
       if (status === 'ok') {
-        dispatch(updateChannel({ id, changes: { name: newName } }));
+        dispatch(updateChannel({ id, changes: { name } }));
       }
       notify(status);
     });

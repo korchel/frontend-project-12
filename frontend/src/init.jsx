@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import i18next from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
@@ -54,13 +54,15 @@ const init = async () => {
   return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
-        <Provider store={store}>
-          <I18nextProvider i18n={i18n}>
-            <ChatWSProvider webSocket={webSocket}>
-              <App />
-            </ChatWSProvider>
-          </I18nextProvider>
-        </Provider>
+        <StrictMode>
+          <Provider store={store}>
+            <I18nextProvider i18n={i18n}>
+              <ChatWSProvider webSocket={webSocket}>
+                <App />
+              </ChatWSProvider>
+            </I18nextProvider>
+          </Provider>
+        </StrictMode>
       </ErrorBoundary>
     </RollbarProvider>
   );

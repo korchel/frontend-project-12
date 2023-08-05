@@ -65,8 +65,9 @@ const Channel = ({
 const Channels = ({ showModal }) => {
   const channels = useSelector(selectors.selectAll);
   const dispatch = useDispatch();
-  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
   const { t } = useTranslation();
+
+  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
 
   const changeChannel = (id) => {
     dispatch(setCurrentChannelId(id));

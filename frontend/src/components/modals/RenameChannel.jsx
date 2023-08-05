@@ -21,7 +21,7 @@ const RenameChannel = () => {
   const channels = useSelector(selectors.selectAll);
   const channelsNames = channels.map((channel) => channel.name);
   const renamedChannelId = useSelector((state) => state.modalsReducer.channelId);
-  const [currentChannel] = channels.filter((channel) => channel.id === renamedChannelId);
+  const [renamedChannel] = channels.filter((channel) => channel.id === renamedChannelId);
 
   const notify = (status) => {
     if (status === 'ok') {
@@ -41,10 +41,11 @@ const RenameChannel = () => {
   });
 
   const formik = useFormik({
-    initialValues: { newName: currentChannel.name },
-    onSubmit: ({ newName }) => {
+    initialValues: { newName: renamedChannel.name },
+    onSubmit: ({ newName }, { setSubmitting }) => {
       renameChannel(newName, renamedChannelId, notify);
       dispatch(closeModal());
+      setSubmitting(false)
     },
     validationSchema: getValidationSchema(),
   });
