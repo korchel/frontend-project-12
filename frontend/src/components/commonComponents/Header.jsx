@@ -3,7 +3,7 @@ import { Button, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 
 const LogOutButton = () => {
   const auth = useAuth();

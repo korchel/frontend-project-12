@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -10,26 +10,32 @@ import {
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import image from '../assets/login.jpg';
-import routes from '../routes.js';
-import useAuth from '../hooks/useAuth';
+import image from '../../assets/signup.jpg';
+import routes from '../../routes.js';
+import useAuth from '../../hooks/useAuth.js';
 
-const LoginPage = () => {
+const SignupPage = () => {
   const { t } = useTranslation();
   const ref = useRef(null);
-  const auth = useAuth();
   const navigate = useNavigate();
-  const [authFailed, setauthFailed] = useState(false);
+  const auth = useAuth();
+  const [signupFailed, setSignupFailed] = useState(false);
 
   useEffect(() => {
     ref.current.focus();
   }, []);
 
-  const loginSchema = Yup.object().shape({
+  const signupSchema = Yup.object().shape({
     username: Yup.string()
-      .required(t('login.requiredField')),
+      .min(3, t('signup.usernameLength'))
+      .max(20, t('signup.usernameLength'))
+      .required(t('signup.requiredField')),
     password: Yup.string()
-      .required(t('login.requiredField')),
+      .min(6, t('signup.passwordLength'))
+      .required(t('signup.requiredField')),
+    passwordConfirm: Yup.string()
+      .required(t('signup.requiredField'))
+      .oneOf([Yup.ref('password')], t('signup.passwordsMatch')),
   });
 
   return (
@@ -45,66 +51,73 @@ const LoginPage = () => {
                 initialValues={{
                   username: '',
                   password: '',
+                  passwordConfirmation: '',
                 }}
-                validateOnBlur={false}
                 onSubmit={({ username, password }, actions) => {
-                  setauthFailed(false);
-                  axios.post(routes.loginPath(), {
+                  setSignupFailed(false);
+                  axios.post(routes.signupPath(), {
                     username,
                     password,
                   })
                     .then((response) => {
                       localStorage.setItem('userId', JSON.stringify(response.data));
-
                       auth.logIn();
                       navigate('/');
                     })
                     .catch((error) => {
                       actions.setSubmitting(false);
-                      if (error.isAxiosError && error.response.status === 401) {
-                        setauthFailed(true);
+                      if (error.isAxiosError && error.response.status === 409) {
+                        setSignupFailed(true);
                       }
                     });
                 }}
-                validationSchema={loginSchema}
+                validationSchema={signupSchema}
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
-                  <h1 className="text-center mb-4">{t('login.signin')}</h1>
-                  <label style={{ display: 'none' }} htmlFor="username">{t('login.username')}</label>
+                  <h1 className="text-center mb-4">{t('signup.registration')}</h1>
+                  <label style={{ display: 'none' }} htmlFor="username">{t('signup.username')}</label>
                   <Field
                     type="text"
                     name="username"
-                    placeholder={t('login.username')}
+                    placeholder={t('signup.username')}
                     className="form-control form-floating mb-3"
                     innerRef={ref}
                     id="username"
                   />
                   <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
-                  <label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</label>
+                  <label style={{ display: 'none' }} htmlFor="password">{t('signup.password')}</label>
                   <Field
                     type="password"
                     name="password"
-                    placeholder={t('login.password')}
                     className="form-control form-floating mb-3"
+                    placeholder={t('signup.password')}
                     id="password"
                   />
                   <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
-                  {authFailed
+                  <label style={{ display: 'none' }} htmlFor="passwordConfirm">{t('signup.passwordConfirm')}</label>
+                  <Field
+                    type="password"
+                    name="passwordConfirm"
+                    className="form-control form-floating mb-3"
+                    placeholder={t('signup.passwordConfirm')}
+                    id="passwordConfirm"
+                  />
+                  <ErrorMessage name="passwordConfirm" component="p" className="feedback m-0 small text-danger" />
+                  {signupFailed
                     && (
                       <p className="feedback m-0 small text-danger">
-                        {t('login.wrongNameAndPassword')}
+                        {t('signup.userExists')}
                       </p>
                     )}
-                  <button type="submit" className="btn btn-outline-primary w-100 mb-3">{t('login.signin')}</button>
+                  <button
+                    type="submit"
+                    className="btn btn-outline-primary w-100 mb-3"
+                  >
+                    {t('signup.signup')}
+                  </button>
                 </Form>
               </Formik>
             </Card.Body>
-            <Card.Footer className="p-4">
-              <div className="text-center">
-                <span className="px-1">{t('login.noAccountYet')}</span>
-                <Link to="/signup">{t('login.signup')}</Link>
-              </div>
-            </Card.Footer>
           </Card>
         </Col>
       </Row>
@@ -112,4 +125,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

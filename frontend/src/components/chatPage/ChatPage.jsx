@@ -7,8 +7,8 @@ import { Container, Row } from 'react-bootstrap';
 import routes from '../../routes.js';
 import { addMessages } from '../../slices/messagesSlice.js';
 import { addChannels, setCurrentChannelId } from '../../slices/channelsSlice.js';
-import Channels from './Channels.jsx';
-import Messages from './Messages.jsx';
+import Channels from './components/Channels.jsx';
+import Messages from './components/Messages.jsx';
 import getModal from '../modals/index.js';
 import { openModal } from '../../slices/modalsSlice.js';
 

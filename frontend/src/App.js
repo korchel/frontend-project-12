@@ -4,11 +4,11 @@ import {
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import Header from './components/Header';
-import LoginPage from './components/LoginPage';
-import SignupPage from './components/SignupPage';
-import Chat from './components/chatPage/Chat';
-import NotFoundPage from './components/NotFoundPage';
+import Header from './components/commonComponents/Header';
+import LoginPage from './components/loginPage/LoginPage';
+import SignupPage from './components/signupPage/SignupPage';
+import Chat from './components/chatPage/ChatPage';
+import NotFoundPage from './components/notFoundPage/NotFoundPage';
 import AuthProvider from './contexts/AuthContext.jsx';
 import useAuth from './hooks/useAuth';
 

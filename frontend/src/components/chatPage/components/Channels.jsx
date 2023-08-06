@@ -6,7 +6,7 @@ import {
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 
-import { selectors, setCurrentChannelId } from '../../slices/channelsSlice.js';
+import { selectors, setCurrentChannelId } from '../../../slices/channelsSlice.js';
 
 const Channel = ({
   channel, changeChannel, showModal, currentChannelId,

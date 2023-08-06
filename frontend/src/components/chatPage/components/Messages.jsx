@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 
-import { selectors as messagesSelectors } from '../../slices/messagesSlice.js';
-import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
+import { selectors as messagesSelectors } from '../../../slices/messagesSlice.js';
+import { selectors as channelsSelectors } from '../../../slices/channelsSlice.js';
 
 import MessagesHeader from './MessagesHeader.jsx';
 import MessagesBox from './MessagesBox.jsx';
