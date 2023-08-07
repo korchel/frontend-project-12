@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 import image from '../../assets/login.jpg';
 import routes from '../../routes.js';
-import useAuth from '../../hooks/useAuth';
+import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
 
 const LoginPage = () => {
   const { t } = useTranslation();

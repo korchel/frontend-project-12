@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import useChatWS from '../../hooks/useChatWS.js';
+import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
 import { closeModal } from '../../slices/modalsSlice.js';
 
 const RemoveChannel = () => {

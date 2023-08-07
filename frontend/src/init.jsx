@@ -9,7 +9,7 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import resources from './locales/index';
 import App from './App';
 import store from './slices/index.js';
-import ChatWSProvider from './contexts/ChatWSContext';
+import { ChatWSProvider } from './contexts/chatWSContext/ChatWSContext.jsx';
 import { addMessage } from './slices/messagesSlice';
 import { addChannel, updateChannel, removeChannel } from './slices/channelsSlice';
 

@@ -9,8 +9,7 @@ import LoginPage from './components/loginPage/LoginPage';
 import SignupPage from './components/signupPage/SignupPage';
 import Chat from './components/chatPage/ChatPage';
 import NotFoundPage from './components/notFoundPage/NotFoundPage';
-import AuthProvider from './contexts/AuthContext.jsx';
-import useAuth from './hooks/useAuth';
+import { AuthProvider, useAuth } from './contexts/authContext/AuthContext.jsx';
 
 const PrivateRoute = ({ children }) => {
   const auth = useAuth();

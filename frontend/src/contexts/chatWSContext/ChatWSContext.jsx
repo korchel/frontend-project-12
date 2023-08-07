@@ -1,6 +1,6 @@
-import React, { createContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { setCurrentChannelId, removeChannel, updateChannel } from '../slices/channelsSlice';
+import { setCurrentChannelId, removeChannel, updateChannel } from '../../slices/channelsSlice';
 
 export const ChatWSContext = createContext();
 
@@ -51,4 +51,6 @@ const ChatWSProvider = ({ webSocket, children }) => {
   );
 };
 
-export default ChatWSProvider;
+const useChatWS = () => useContext(ChatWSContext);
+
+export { ChatWSProvider, useChatWS };

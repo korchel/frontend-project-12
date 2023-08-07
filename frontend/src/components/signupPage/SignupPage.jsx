@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 
 import image from '../../assets/signup.jpg';
 import routes from '../../routes.js';
-import useAuth from '../../hooks/useAuth.js';
+import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
 
 const SignupPage = () => {
   const { t } = useTranslation();
