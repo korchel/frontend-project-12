@@ -27,15 +27,15 @@ const SignupPage = () => {
 
   const signupSchema = Yup.object().shape({
     username: Yup.string()
-      .min(3, t('signup.usernameLength'))
-      .max(20, t('signup.usernameLength'))
-      .required(t('signup.requiredField')),
+      .min(3, 'signup.usernameLength')
+      .max(20, 'signup.usernameLength')
+      .required('signup.requiredField'),
     password: Yup.string()
-      .min(6, t('signup.passwordLength'))
-      .required(t('signup.requiredField')),
+      .min(6, 'signup.passwordLength')
+      .required('signup.requiredField'),
     passwordConfirm: Yup.string()
-      .required(t('signup.requiredField'))
-      .oneOf([Yup.ref('password')], t('signup.passwordsMatch')),
+      .required('signup.requiredField')
+      .oneOf([Yup.ref('password')], 'signup.passwordsMatch'),
   });
 
   return (
@@ -84,7 +84,12 @@ const SignupPage = () => {
                     innerRef={ref}
                     id="username"
                   />
-                  <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
+                  <ErrorMessage
+                    name="username"
+                    render={(error) => (
+                      <p className="small text-danger">{t(error)}</p>
+                    )}
+                  />
                   <label style={{ display: 'none' }} htmlFor="password">{t('signup.password')}</label>
                   <Field
                     type="password"
@@ -93,7 +98,12 @@ const SignupPage = () => {
                     placeholder={t('signup.password')}
                     id="password"
                   />
-                  <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
+                  <ErrorMessage
+                    name="password"
+                    render={(error) => (
+                      <p className="small text-danger">{t(error)}</p>
+                    )}
+                  />
                   <label style={{ display: 'none' }} htmlFor="passwordConfirm">{t('signup.passwordConfirm')}</label>
                   <Field
                     type="password"
@@ -102,7 +112,12 @@ const SignupPage = () => {
                     placeholder={t('signup.passwordConfirm')}
                     id="passwordConfirm"
                   />
-                  <ErrorMessage name="passwordConfirm" component="p" className="feedback m-0 small text-danger" />
+                  <ErrorMessage 
+                    name="passwordConfirm"
+                    render={(error) => (
+                      <p className="small text-danger">{t(error)}</p>
+                    )}
+                  />
                   {signupFailed
                     && (
                       <p className="feedback m-0 small text-danger">

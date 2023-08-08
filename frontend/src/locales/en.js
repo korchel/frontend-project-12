@@ -59,6 +59,7 @@ const en = {
         channelRenamed: 'Channel has been renamed',
         connectionError: 'Connection error',
         channelName: 'Channel\'s name',
+        requiredField: 'Required field',
       },
     },
   },

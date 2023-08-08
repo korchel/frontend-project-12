@@ -34,10 +34,10 @@ const RenameChannel = () => {
 
   const getValidationSchema = () => Yup.object().shape({
     newName: Yup.string()
-      .required()
-      .min(3, t('chat.modals.nameLength'))
-      .max(20, t('chat.modals.nameLength'))
-      .notOneOf(channelsNames, t('chat.modals.nameExists')),
+      .required('chat.modals.requiredField')
+      .min(3, 'chat.modals.nameLength')
+      .max(20, 'chat.modals.nameLength')
+      .notOneOf(channelsNames, 'chat.modals.nameExists'),
   });
 
   const formik = useFormik({
@@ -77,11 +77,9 @@ const RenameChannel = () => {
               id="newName"
               isInvalid={formik.touched.newName && !!formik.errors.newName}
             />
-            <p className="feedback m-0 small text-danger">
-              {formik.errors.newName
-                && formik.touched.newName
-                ? formik.errors.newName : ''}
-            </p>
+            <FormControl.Feedback type="invalid">
+              {t(formik.errors.newName)}
+            </FormControl.Feedback>
             <div className="d-flex justify-content-end">
               <Button
                 onClick={hideModal}

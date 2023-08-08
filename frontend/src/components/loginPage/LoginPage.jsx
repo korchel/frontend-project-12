@@ -27,9 +27,9 @@ const LoginPage = () => {
 
   const loginSchema = Yup.object().shape({
     username: Yup.string()
-      .required(t('login.requiredField')),
+      .required('login.requiredField'),
     password: Yup.string()
-      .required(t('login.requiredField')),
+      .required('login.requiredField'),
   });
 
   return (
@@ -79,7 +79,12 @@ const LoginPage = () => {
                     innerRef={ref}
                     id="username"
                   />
-                  <ErrorMessage name="username" component="p" className="feedback m-0 small text-danger" />
+                  <ErrorMessage
+                    name="username"
+                    render={(error) => (
+                      <p className="small text-danger">{t(error)}</p>
+                    )}
+                  />
                   <label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</label>
                   <Field
                     type="password"
@@ -88,7 +93,12 @@ const LoginPage = () => {
                     className="form-control form-floating mb-3"
                     id="password"
                   />
-                  <ErrorMessage name="password" component="p" className="feedback m-0 small text-danger" />
+                  <ErrorMessage
+                    name="password"
+                    render={(error) => (
+                      <p className="feedback m-0 small text-danger">{t(error)}</p>
+                    )}
+                  />
                   {authFailed
                     && (
                       <p className="feedback m-0 small text-danger">

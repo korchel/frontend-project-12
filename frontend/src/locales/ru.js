@@ -60,6 +60,7 @@ const ru = {
         channelRenamed: 'Канал переименован',
         connectionError: 'Ошибка соединения',
         channelName: 'Имя канала',
+        requiredField: 'Обязательное поле',
       },
     },
   },

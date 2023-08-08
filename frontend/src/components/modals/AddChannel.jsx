@@ -31,10 +31,10 @@ const AddChannel = () => {
 
   const getValidationSchema = () => Yup.object().shape({
     newChannelsName: Yup.string()
-      .required()
-      .min(3, 'Минимум 3 символа')
-      .max(15, 'Минимум 15 символов')
-      .notOneOf(channels, 'Имя уже существует'),
+      .required('chat.modals.requiredField')
+      .min(3, 'chat.modals.nameLength')
+      .max(20, 'chat.modals.nameLength')
+      .notOneOf(channels, 'chat.modals.nameExists'),
   });
 
   const formik = useFormik({
@@ -75,7 +75,9 @@ const AddChannel = () => {
               id="newChannelsName"
               isInvalid={formik.touched.newChannelsName && !!formik.errors.newChannelsName}
             />
-            <p className="feedback m-0 small text-danger">{formik.errors.newChannelsName && formik.touched.newChannelsName ? formik.errors.newChannelsName : ''}</p>
+            <FormControl.Feedback type="invalid">
+              {t(formik.errors.newChannelsName)}
+            </FormControl.Feedback>
             <div className="d-flex justify-content-end">
               <Button onClick={hideModal} className="me-2" variant="secondary">{t('chat.modals.cancel')}</Button>
               <Button type="submit" variant="primary">{t('chat.modals.submit')}</Button>
