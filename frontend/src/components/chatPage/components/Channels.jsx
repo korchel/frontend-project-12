@@ -4,15 +4,15 @@ import { Col, Button } from 'react-bootstrap';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 
-import { selectors, setCurrentChannelId } from '../../../slices/channelsSlice.js';
-import Channel from './Channel.jsx'
+import { selectors, setCurrentChannelId, getCurrentChannelId } from '../../../slices/channelsSlice.js';
+import Channel from './Channel.jsx';
 
 const Channels = ({ showModal }) => {
-  const channels = useSelector(selectors.selectAll);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const currentChannelId = useSelector((state) => state.channelsReducer.currentChannelId);
+  const channels = useSelector(selectors.selectAll);
+  const currentChannelId = useSelector(getCurrentChannelId);
 
   const changeChannel = (id) => {
     dispatch(setCurrentChannelId(id));

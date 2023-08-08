@@ -10,7 +10,7 @@ import { addChannels, setCurrentChannelId } from '../../slices/channelsSlice.js'
 import Channels from './components/Channels.jsx';
 import Messages from './components/Messages.jsx';
 import getModal from '../modals/index.js';
-import { openModal } from '../../slices/modalsSlice.js';
+import { openModal, getModalType } from '../../slices/modalsSlice.js';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -33,7 +33,7 @@ const Chat = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const modalType = useSelector((state) => state.modalsReducer.type);
+  const modalType = useSelector(getModalType);
 
   useEffect(() => {
     axios.get(routes.dataPath(), { headers: getAuthHeader() })

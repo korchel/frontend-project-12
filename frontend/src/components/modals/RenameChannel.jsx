@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
-import { selectors } from '../../slices/channelsSlice.js';
-import { closeModal } from '../../slices/modalsSlice.js';
+import { selectors, getChannelsNames } from '../../slices/channelsSlice.js';
+import { closeModal, getChannelId } from '../../slices/modalsSlice.js';
 
 const RenameChannel = () => {
   const { t } = useTranslation();
@@ -19,8 +19,8 @@ const RenameChannel = () => {
   const inputRef = useRef();
 
   const channels = useSelector(selectors.selectAll);
-  const channelsNames = channels.map((channel) => channel.name);
-  const renamedChannelId = useSelector((state) => state.modalsReducer.channelId);
+  const channelsNames = useSelector(getChannelsNames);
+  const renamedChannelId = useSelector(getChannelId);
   const [renamedChannel] = channels.filter((channel) => channel.id === renamedChannelId);
 
   const notify = (status) => {

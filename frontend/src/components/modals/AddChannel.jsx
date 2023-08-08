@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
-import { selectors } from '../../slices/channelsSlice.js';
+import { getChannelsNames } from '../../slices/channelsSlice.js';
 import { closeModal } from '../../slices/modalsSlice.js';
 
 const AddChannel = () => {
@@ -18,7 +18,7 @@ const AddChannel = () => {
   const dispatch = useDispatch();
 
   const { addChannel } = useChatWS();
-  const channels = useSelector(selectors.selectAll).map((channel) => channel.name);
+  const channels = useSelector(getChannelsNames);
 
   const notify = (status) => {
     if (status === 'ok') {

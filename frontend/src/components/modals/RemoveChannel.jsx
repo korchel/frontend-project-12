@@ -5,13 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
-import { closeModal } from '../../slices/modalsSlice.js';
+import { closeModal, getChannelId } from '../../slices/modalsSlice.js';
 
 const RemoveChannel = () => {
   const { t } = useTranslation();
-  const { deleteChannel } = useChatWS();
-  const removedChannelId = useSelector((state) => state.modalsReducer.channelId);
   const dispatch = useDispatch();
+  const { deleteChannel } = useChatWS();
+
+  const removedChannelId = useSelector(getChannelId);
 
   const notify = (status) => {
     if (status === 'ok') {

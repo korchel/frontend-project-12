@@ -3,17 +3,15 @@ import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 
 import { selectors as messagesSelectors } from '../../../slices/messagesSlice.js';
-import { selectors as channelsSelectors } from '../../../slices/channelsSlice.js';
+import { getCurrentChannelId, getCurrentChannel } from '../../../slices/channelsSlice.js';
 
 import MessagesHeader from './MessagesHeader.jsx';
 import MessagesBox from './MessagesBox.jsx';
 import MessagesInput from './MessagesInput.jsx';
 
 const Messages = () => {
-  const currentChannelId = useSelector((state) => (
-    state.channelsReducer.currentChannelId));
-  const currentChannel = useSelector((state) => (
-    channelsSelectors.selectById(state, currentChannelId)));
+  const currentChannelId = useSelector(getCurrentChannelId);
+  const currentChannel = useSelector(getCurrentChannel);
 
   const messages = useSelector(messagesSelectors.selectAll);
 
