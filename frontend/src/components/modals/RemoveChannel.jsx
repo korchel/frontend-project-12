@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
 import { closeModal, getChannelId } from '../../slices/modalsSlice.js';
+import { setDefaultChannel } from '../../slices/channelsSlice.js'
 
 const RemoveChannel = () => {
   const { t } = useTranslation();
@@ -26,6 +27,7 @@ const RemoveChannel = () => {
   const handleDelete = () => {
     deleteChannel(removedChannelId, notify);
     dispatch(closeModal());
+    dispatch(setDefaultChannel());
   };
 
   const hideModal = () => {

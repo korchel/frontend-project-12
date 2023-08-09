@@ -16,13 +16,15 @@ const MessagesInput = ({ currentChannelId }) => {
   const formik = useFormik({
     initialValues: { message: '' },
     onSubmit: ({ message }, actions) => {
-      const filteredMessage = leoProfanity.clean(message);
-      const newMessage = {
-        body: filteredMessage,
-        channelId: currentChannelId,
-        username,
-      };
-      sendMessage(newMessage);
+      if (message) {
+        const filteredMessage = leoProfanity.clean(message);
+        const newMessage = {
+          body: filteredMessage,
+          channelId: currentChannelId,
+          username,
+        };
+        sendMessage(newMessage);
+      }
       actions.resetForm();
     },
   });
