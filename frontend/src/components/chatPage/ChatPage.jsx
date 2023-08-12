@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 
 import routes from '../../routes.js';
+import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
 import { addMessages } from '../../slices/messagesSlice.js';
 import { addChannels, setCurrentChannelId } from '../../slices/channelsSlice.js';
 import Channels from './components/Channels.jsx';
@@ -12,11 +13,9 @@ import Messages from './components/Messages.jsx';
 import getModal from '../modals/index.js';
 import { openModal, getModalType } from '../../slices/modalsSlice.js';
 
-const getAuthHeader = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
+const getAuthHeader = (token) => {
+  if (token) {
+    return { Authorization: `Bearer ${token}` };
   }
   return {};
 };
@@ -34,9 +33,10 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   const modalType = useSelector(getModalType);
+  const { token } = useAuth();
 
   useEffect(() => {
-    axios.get(routes.dataPath(), { headers: getAuthHeader() })
+    axios.get(routes.dataPath(), { headers: getAuthHeader(token) })
       .then((responce) => {
         const { channels, messages, currentChannelId } = responce.data;
         dispatch(addChannels(channels));
@@ -48,7 +48,7 @@ const Chat = () => {
           navigate('/login');
         }
       });
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, token]);
 
   const showModal = (type, id = null) => {
     dispatch(openModal({ type, id }));

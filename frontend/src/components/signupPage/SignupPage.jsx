@@ -51,7 +51,7 @@ const SignupPage = () => {
                 initialValues={{
                   username: '',
                   password: '',
-                  passwordConfirmation: '',
+                  passwordConfirm: '',
                 }}
                 onSubmit={({ username, password }, actions) => {
                   setSignupFailed(false);
@@ -60,8 +60,7 @@ const SignupPage = () => {
                     password,
                   })
                     .then((response) => {
-                      localStorage.setItem('userId', JSON.stringify(response.data));
-                      auth.logIn();
+                      auth.logIn(response.data);
                       navigate('/');
                     })
                     .catch((error) => {

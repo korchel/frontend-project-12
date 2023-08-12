@@ -6,12 +6,13 @@ import { useTranslation } from 'react-i18next';
 import leoProfanity from 'leo-profanity';
 
 import { useChatWS } from '../../../contexts/chatWSContext/ChatWSContext.jsx';
+import { useAuth } from '../../../contexts/authContext/AuthContext.jsx';
 
 const MessagesInput = ({ currentChannelId }) => {
   const inputRef = useRef(null);
   const { t } = useTranslation();
   const { sendMessage } = useChatWS();
-  const { username } = JSON.parse(localStorage.getItem('userId'));
+  const { username } = useAuth();
 
   const formik = useFormik({
     initialValues: { message: '' },
