@@ -10,8 +10,8 @@ const Channel = ({
   const { t } = useTranslation();
 
   const getClassNames = (id) => (id === currentChannelId
-    ? 'text-start rounded-0 w-100'
-    : 'text-start rounded-0 w-100 btn-secondary');
+    ? 'text-start text-truncate rounded-0 w-100'
+    : 'text-start text-truncate rounded-0 w-100 btn-secondary');
 
   const getVariant = (id) => (id === currentChannelId
     ? 'secondary'
