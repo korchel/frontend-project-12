@@ -11,10 +11,17 @@ import Chat from './components/chatPage/ChatPage';
 import NotFoundPage from './components/notFoundPage/NotFoundPage';
 import { AuthProvider, useAuth } from './contexts/authContext/AuthContext.jsx';
 
-const PrivateRoute = () => {
-  const auth = useAuth();
+const LoggedInRoute = () => {
+  const { loggedIn } = useAuth();
   return (
-    auth.loggedIn ? <Outlet /> : <Navigate to="/login" />
+    loggedIn ? <Outlet /> : <Navigate to="/login" />
+  );
+};
+
+const LoggedOutRoute = () => {
+  const { loggedIn } = useAuth();
+  return (
+    !loggedIn ? <Outlet /> : <Navigate to="/" />
   );
 };
 
@@ -24,12 +31,16 @@ const App = () => (
       <div className="d-flex flex-column h-100">
         <Header />
         <Routes>
-          <Route path="/" element={<PrivateRoute />}>
+          <Route path="/" element={<LoggedInRoute />}>
             <Route path="/" element={<Chat />}></Route>
           </Route>
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoggedOutRoute />}>
+            <Route path="" element={<LoginPage />} />
+          </Route>
+          <Route path="/signup" element={<LoggedOutRoute />}>
+            <Route path="" element={<SignupPage />} />
+          </Route>
         </Routes>
       </div>
       <ToastContainer />
