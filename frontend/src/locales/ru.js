@@ -28,6 +28,7 @@ const ru = {
     },
     header: {
       logout: 'Выйти',
+      login: 'Войти',
     },
     chat: {
       channels: {

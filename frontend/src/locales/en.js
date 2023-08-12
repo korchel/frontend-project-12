@@ -29,6 +29,7 @@ const en = {
     },
     header: {
       logout: 'Log out',
+      login: 'Log in',
     },
     chat: {
       channels: {
