@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 
-import routes from '../../routes.js';
 import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
-import { addMessages } from '../../slices/messagesSlice.js';
-import { addChannels, setCurrentChannelId } from '../../slices/channelsSlice.js';
+import { fetchMessages } from '../../slices/messagesSlice.js';
+import { fetchChannels,
+  // getLoadingError as channelsError,
+  // getloadingState as channelsSate,
+} from '../../slices/channelsSlice.js';
 import Channels from './components/Channels.jsx';
 import Messages from './components/Messages.jsx';
 import getModal from '../modals/index.js';
 import { openModal, getModalType } from '../../slices/modalsSlice.js';
-
-const getAuthHeader = (token) => {
-  if (token) {
-    return { Authorization: `Bearer ${token}` };
-  }
-  return {};
-};
 
 const renderModal = (type) => {
   if (!type) {
@@ -33,21 +27,19 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   const modalType = useSelector(getModalType);
+
+  // const loadingChannelsError = useSelector(channelsError);
+  // const loadingChannelsState = useSelector(channelsSate);
+
+
   const { token } = useAuth();
 
   useEffect(() => {
-    axios.get(routes.dataPath(), { headers: getAuthHeader(token) })
-      .then((responce) => {
-        const { channels, messages, currentChannelId } = responce.data;
-        dispatch(addChannels(channels));
-        dispatch(addMessages(messages));
-        dispatch(setCurrentChannelId(currentChannelId));
-      })
-      .catch((error) => {
-        if (error.isAxiosError && error.response.status === 401) {
-          navigate('/login');
-        }
-      });
+    dispatch(fetchChannels(token));
+    dispatch(fetchMessages(token));
+    // if (error.isAxiosError && error.response.status === 401) {
+    //   navigate('/login');
+    // }
   }, [dispatch, navigate, token]);
 
   const showModal = (type, id = null) => {
@@ -56,6 +48,7 @@ const Chat = () => {
 
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">
+
       <Row className="h-100 bg-white flex-md-row">
         <Channels showModal={showModal} />
         <Messages />
