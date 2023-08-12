@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter, Routes, Route, Navigate,
+  BrowserRouter, Routes, Route, Navigate, Outlet,
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
@@ -11,10 +11,10 @@ import Chat from './components/chatPage/ChatPage';
 import NotFoundPage from './components/notFoundPage/NotFoundPage';
 import { AuthProvider, useAuth } from './contexts/authContext/AuthContext.jsx';
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const auth = useAuth();
   return (
-    auth.loggedIn ? children : <Navigate to="/login" />
+    auth.loggedIn ? <Outlet /> : <Navigate to="/login" />
   );
 };
 
@@ -24,14 +24,9 @@ const App = () => (
       <div className="d-flex flex-column h-100">
         <Header />
         <Routes>
-          <Route
-            path="/"
-            element={(
-              <PrivateRoute>
-                <Chat />
-              </PrivateRoute>
-            )}
-          />
+          <Route path="/" element={<PrivateRoute />}>
+            <Route path="/" element={<Chat />}></Route>
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
