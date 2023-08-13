@@ -1,24 +1,11 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-import routes from '../routes';
-
-export const fetchChannels = createAsyncThunk(
-  'fetchChannels',
-  async (token) => {
-    const responce = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${token}` }});
-    const {channels, currentChannelId} = responce.data;
-    return {channels, currentChannelId};
-  },
-);
+import { createSlice, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { fetch } from './loadingSlice.js';
 
 const channelsAdapter = createEntityAdapter();
 
 const initialState = channelsAdapter.getInitialState({
   currentChannelId: 1,
-  getloadingState: 'idle',
-  error: null,
 });
 
 const channelsSlice = createSlice({
@@ -38,21 +25,11 @@ const channelsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchChannels.pending, (state) => {
-        state.getloadingState = 'loading';
-        state.error = null;
-      })
-      .addCase(fetchChannels.fulfilled, (state, action) => {
+      .addCase(fetch.fulfilled, (state, action) => {
         channelsAdapter.addMany(state, action.payload.channels);
-        channelsSlice.actions.setCurrentChannelId(state, action.payload.currentChannelId);
-        state.getloadingState = 'idle';
-        state.error = null;
-      })
-      .addCase(fetchChannels.rejected, (state, action) => {
-        state.getloadingState = 'failed';
-        state.error = action.error;
-      })
-  }
+        state.currentChannelId = action.payload.currentChannelId;
+      });
+  },
 });
 
 export const {
@@ -65,8 +42,10 @@ export const getCurrentChannel = (state) => {
   const { currentChannelId } = state.channelsReducer;
   return state.channelsReducer.entities[currentChannelId];
 };
-export const getChannelsNames = (state) => state.channelsReducer.ids
-  .map((id) => state.channelsReducer.entities[id].name);
-export const getloadingState = (state) => state.channelsReducer.getloadingState;
-export const getLoadingError = (state) => state.channelsReducer.error;
+
+export const getChannelsNames = createSelector(
+  (state) => state.channelsReducer.entities,
+  (entities) => Object.values(entities).map((channel) => channel.name),
+);
+
 export default channelsSlice.reducer;

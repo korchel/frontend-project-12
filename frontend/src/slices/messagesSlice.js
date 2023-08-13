@@ -1,17 +1,8 @@
 /* eslint-disable no-param-reassign */
-import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
-import routes from '../routes';
 import { removeChannel } from './channelsSlice';
-
-export const fetchMessages = createAsyncThunk(
-  'fetchMessages',
-  async (token) => {
-    const responce = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${token}` }});
-    return responce.data.messages;
-  },
-);
+import { fetch } from './loadingSlice.js';
 
 const messagesAdapter = createEntityAdapter();
 
@@ -36,19 +27,9 @@ const messagesSlice = createSlice({
           .map((message) => message.id);
         messagesAdapter.removeMany(state, messagesIds);
       })
-      .addCase(fetchMessages.pending, (state) => {
-        state.loadingMessages = 'loading';
-        state.error = null;
-      })
-      .addCase(fetchMessages.fulfilled, (state, action) => {
-        messagesAdapter.addMany(state, action.payload);
-        state.loadingMessages = 'idle';
-        state.error = null;
-      })
-      .addCase(fetchMessages.rejected, (state, action) => {
-        state.loadingMessages = 'failed';
-        state.error = action.error;
-      })
+      .addCase(fetch.fulfilled, (state, action) => {
+        messagesAdapter.addMany(state, action.payload.messages);
+      });
   },
 });
 

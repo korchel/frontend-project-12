@@ -9,6 +9,13 @@ const AuthProvider = ({ children }) => {
     ? JSON.parse(localStorage.getItem('userId'))
     : {};
 
+  const getAuthHeader = () => {
+    if (token) {
+      return { Authorization: `Bearer ${token}` };
+    }
+    return {};
+  };
+
   const logIn = (data) => {
     localStorage.setItem('userId', JSON.stringify(data));
     setLoggedIn(true);
@@ -19,7 +26,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ loggedIn, logIn, logOut, username, token }}>
+    <AuthContext.Provider value={{ loggedIn, logIn, logOut, username, token, getAuthHeader }}>
       {children}
     </AuthContext.Provider>
   );
