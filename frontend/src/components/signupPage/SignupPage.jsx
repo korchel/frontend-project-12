@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Formik, Form, Field, ErrorMessage, useFormik,
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -38,6 +38,32 @@ const SignupPage = () => {
       .oneOf([Yup.ref('password')], 'signup.passwordsMatch'),
   });
 
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+      passwordConfirm: '',
+    },
+    onSubmit: ({ username, password }, actions) => {
+      setSignupFailed(false);
+      axios.post(routes.signupPath(), {
+        username,
+        password,
+      })
+        .then((response) => {
+          auth.logIn(response.data);
+          navigate('/');
+        })
+        .catch((error) => {
+          actions.setSubmitting(false);
+          if (error.isAxiosError && error.response.status === 409) {
+            setSignupFailed(true);
+          }
+        });
+    },
+    validationSchema: signupSchema,
+  });
+
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -48,29 +74,9 @@ const SignupPage = () => {
                 <Image src={image} alt="#" className="rounded-circle" />
               </Col>
               <Formik
-                initialValues={{
-                  username: '',
-                  password: '',
-                  passwordConfirm: '',
-                }}
-                onSubmit={({ username, password }, actions) => {
-                  setSignupFailed(false);
-                  axios.post(routes.signupPath(), {
-                    username,
-                    password,
-                  })
-                    .then((response) => {
-                      auth.logIn(response.data);
-                      navigate('/');
-                    })
-                    .catch((error) => {
-                      actions.setSubmitting(false);
-                      if (error.isAxiosError && error.response.status === 409) {
-                        setSignupFailed(true);
-                      }
-                    });
-                }}
-                validationSchema={signupSchema}
+                initialValues={formik.initialValues}
+                onSubmit={formik.handleSubmit}
+                validationSchema={formik.validationSchema}
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
                   <h1 className="text-center mb-4">{t('signup.registration')}</h1>
@@ -82,6 +88,8 @@ const SignupPage = () => {
                     className="form-control form-floating mb-3"
                     innerRef={ref}
                     id="username"
+                    onChange={formik.handleChange}
+                    value={formik.values.username}
                   />
                   <ErrorMessage
                     name="username"
@@ -96,6 +104,8 @@ const SignupPage = () => {
                     className="form-control form-floating mb-3"
                     placeholder={t('signup.password')}
                     id="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
                   />
                   <ErrorMessage
                     name="password"
@@ -110,6 +120,8 @@ const SignupPage = () => {
                     className="form-control form-floating mb-3"
                     placeholder={t('signup.passwordConfirm')}
                     id="passwordConfirm"
+                    onChange={formik.handleChange}
+                    value={formik.values.passwordConfirm}
                   />
                   <ErrorMessage 
                     name="passwordConfirm"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
-  Formik, Form, Field, ErrorMessage,
+  Formik, Form, Field, ErrorMessage, useFormik,
 } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -32,6 +32,32 @@ const LoginPage = () => {
       .required('login.requiredField'),
   });
 
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    onSubmit: ({ username, password }, actions) => {
+      setauthFailed(false);
+      axios.post(routes.loginPath(), {
+        username,
+        password,
+      })
+        .then((response) => {
+          auth.logIn(response.data);
+          navigate('/');
+        })
+        .catch((error) => {
+          actions.setSubmitting(false);
+          if (error.isAxiosError && error.response.status === 401) {
+            setauthFailed(true);
+          }
+        });
+    },
+    validateOnBlur: false,
+    validationSchema: loginSchema,
+  });
+
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -42,29 +68,10 @@ const LoginPage = () => {
                 <Image src={image} alt="#" className="rounded-circle" />
               </Col>
               <Formik
-                initialValues={{
-                  username: '',
-                  password: '',
-                }}
-                validateOnBlur={false}
-                onSubmit={({ username, password }, actions) => {
-                  setauthFailed(false);
-                  axios.post(routes.loginPath(), {
-                    username,
-                    password,
-                  })
-                    .then((response) => {
-                      auth.logIn(response.data);
-                      navigate('/');
-                    })
-                    .catch((error) => {
-                      actions.setSubmitting(false);
-                      if (error.isAxiosError && error.response.status === 401) {
-                        setauthFailed(true);
-                      }
-                    });
-                }}
-                validationSchema={loginSchema}
+                initialValues={formik.initialValues}
+                onSubmit={formik.handleSubmit}
+                validationSchema={formik.validationSchema}
+                validateOnBlur={formik.validateOnBlur}
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
                   <h1 className="text-center mb-4">{t('login.signin')}</h1>
@@ -76,6 +83,8 @@ const LoginPage = () => {
                     className="form-control form-floating mb-3"
                     innerRef={ref}
                     id="username"
+                    onChange={formik.handleChange}
+                    value={formik.values.username}
                   />
                   <ErrorMessage
                     name="username"
@@ -90,6 +99,8 @@ const LoginPage = () => {
                     placeholder={t('login.password')}
                     className="form-control form-floating mb-3"
                     id="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
                   />
                   <ErrorMessage
                     name="password"
