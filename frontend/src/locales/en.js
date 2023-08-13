@@ -1,6 +1,10 @@
 /* eslint-disable */
 const en = {
   translation: {
+    error: {
+      somethingWentWrong: 'Something went wrong',
+      refreshPage: 'Refresh page',
+    },
     login: {
       signin: 'Sign in',
       username: 'Username',

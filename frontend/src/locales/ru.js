@@ -1,5 +1,9 @@
 const ru = {
   translation: {
+    error: {
+      somethingWentWrong: 'Что-то пошло не так',
+      refreshPage: 'Обновить',
+    },
     login: {
       signin: 'Войти',
       username: 'Ваш ник',
