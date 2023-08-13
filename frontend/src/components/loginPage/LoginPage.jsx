@@ -33,10 +33,6 @@ const LoginPage = () => {
   });
 
   const formik = useFormik({
-    initialValues: {
-      username: '',
-      password: '',
-    },
     onSubmit: ({ username, password }, actions) => {
       setauthFailed(false);
       axios.post(routes.loginPath(), {
@@ -54,8 +50,6 @@ const LoginPage = () => {
           }
         });
     },
-    validateOnBlur: false,
-    validationSchema: loginSchema,
   });
 
   return (
@@ -68,10 +62,13 @@ const LoginPage = () => {
                 <Image src={image} alt="#" className="rounded-circle" />
               </Col>
               <Formik
-                initialValues={formik.initialValues}
+                initialValues={{
+                  username: '',
+                  password: '',
+                }}
                 onSubmit={formik.handleSubmit}
-                validationSchema={formik.validationSchema}
-                validateOnBlur={formik.validateOnBlur}
+                validationSchema={loginSchema}
+                validateOnBlur={false}
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
                   <h1 className="text-center mb-4">{t('login.signin')}</h1>
@@ -83,8 +80,6 @@ const LoginPage = () => {
                     className="form-control form-floating mb-3"
                     innerRef={ref}
                     id="username"
-                    onChange={formik.handleChange}
-                    value={formik.values.username}
                   />
                   <ErrorMessage
                     name="username"
@@ -99,8 +94,6 @@ const LoginPage = () => {
                     placeholder={t('login.password')}
                     className="form-control form-floating mb-3"
                     id="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
                   />
                   <ErrorMessage
                     name="password"

@@ -1,5 +1,10 @@
 const ru = {
   translation: {
+    language: {
+      currentLanguage: 'Русский',
+      russian: 'Русский',
+      english: 'English',
+    },
     error: {
       somethingWentWrong: 'Что-то пошло не так',
       refreshPage: 'Обновить',

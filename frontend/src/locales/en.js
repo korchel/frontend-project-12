@@ -1,6 +1,11 @@
 /* eslint-disable */
 const en = {
   translation: {
+    language: {
+      currentLanguage: 'English',
+      russian: 'Русский',
+      english: 'English',
+    },
     error: {
       somethingWentWrong: 'Something went wrong',
       refreshPage: 'Refresh page',

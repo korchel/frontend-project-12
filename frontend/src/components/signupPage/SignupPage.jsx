@@ -44,6 +44,8 @@ const SignupPage = () => {
       password: '',
       passwordConfirm: '',
     },
+    
+
     onSubmit: ({ username, password }, actions) => {
       setSignupFailed(false);
       axios.post(routes.signupPath(), {
@@ -61,7 +63,6 @@ const SignupPage = () => {
           }
         });
     },
-    validationSchema: signupSchema,
   });
 
   return (
@@ -76,7 +77,8 @@ const SignupPage = () => {
               <Formik
                 initialValues={formik.initialValues}
                 onSubmit={formik.handleSubmit}
-                validationSchema={formik.validationSchema}
+                validationSchema={signupSchema}
+                validateOnBlur= {false}
               >
                 <Form className="col-12 col-md-6 mt-3 mt-mb-0">
                   <h1 className="text-center mb-4">{t('signup.registration')}</h1>
