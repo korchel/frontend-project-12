@@ -4,15 +4,9 @@ import axios from 'axios';
 
 import routes from '../routes';
 
-const slow = () => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, 1000);
-  });
-};
 export const fetch = createAsyncThunk(
   'fetch',
   async (token) => {
-    await slow();
     const responce = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${token}` }});
     const { channels, currentChannelId, messages } = responce.data;
     return { channels, currentChannelId, messages };
