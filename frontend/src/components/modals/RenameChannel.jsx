@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Modal, Form, Button, FormControl, FormLabel,
 } from 'react-bootstrap';
@@ -10,12 +10,11 @@ import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
 import { selectors, getChannelsNames } from '../../slices/channelsSlice.js';
-import { closeModal, getChannelId } from '../../slices/modalsSlice.js';
+import { getChannelId } from '../../slices/modalsSlice.js';
 
-const RenameChannel = () => {
+const RenameChannel = ({ shown, hide }) => {
   const { t } = useTranslation();
   const { renameChannel } = useChatWS();
-  const dispatch = useDispatch();
   const inputRef = useRef();
 
   const channels = useSelector(selectors.selectAll);
@@ -44,13 +43,13 @@ const RenameChannel = () => {
     initialValues: { newName: renamedChannel.name },
     onSubmit: ({ newName }) => {
       renameChannel(newName, renamedChannelId, notify);
-      dispatch(closeModal());
+      hide();
     },
     validationSchema: getValidationSchema(),
   });
 
   const hideModal = () => {
-    dispatch(closeModal());
+    hide();
   };
 
   useEffect(() => {

@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
-import { closeModal, getChannelId } from '../../slices/modalsSlice.js';
+import { getChannelId } from '../../slices/modalsSlice.js';
 import { setDefaultChannel } from '../../slices/channelsSlice.js'
 
-const RemoveChannel = () => {
+const RemoveChannel = ({ shown, hide }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { deleteChannel } = useChatWS();
@@ -26,16 +26,16 @@ const RemoveChannel = () => {
 
   const handleDelete = () => {
     deleteChannel(removedChannelId, notify);
-    dispatch(closeModal());
     dispatch(setDefaultChannel());
+    hide();
   };
 
   const hideModal = () => {
-    dispatch(closeModal());
+    hide();
   };
 
   return (
-    <Modal show onHide={hideModal}>
+    <Modal show={shown} onHide={hideModal}>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.removeChannel')}</Modal.Title>
       </Modal.Header>

@@ -7,22 +7,13 @@ import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
 import { fetch, getLoadingError, getloadingState } from '../../slices/loadingSlice.js';
 import Channels from './components/Channels.jsx';
 import Messages from './components/Messages.jsx';
-import getModal from '../modals/index.js';
-import { openModal, getModalType } from '../../slices/modalsSlice.js';
-
-const renderModal = (type) => {
-  if (!type) {
-    return null;
-  }
-  const Component = getModal(type);
-  return <Component />;
-};
+import Modal from '../modals/Modal.jsx';
+import { openModal } from '../../slices/modalsSlice.js';
 
 const Chat = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const modalType = useSelector(getModalType);
   const loadingError = useSelector(getLoadingError);
   const loadingState = useSelector(getloadingState);
   const { token } = useAuth();
@@ -49,7 +40,7 @@ const Chat = () => {
           <Channels showModal={showModal} />
           <Messages />
         </Row>
-        {renderModal(modalType)}
+        <Modal />
       </Container>
     )
   );

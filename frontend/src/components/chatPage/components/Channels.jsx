@@ -18,13 +18,17 @@ const Channels = ({ showModal }) => {
     dispatch(setCurrentChannelId(id));
   };
 
+  const openModal = () => {
+    showModal('add')
+  };
+
   return (
     <Col className="col-4 col-md-2 border-end px-0 bg-light flex-column d-flex h-100">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('chat.channels.channels')}</b>
         <Button
           type="button"
-          onClick={() => showModal('add')}
+          onClick={openModal}
           variant="group-vertical"
           className="p-0 text-primary"
         >

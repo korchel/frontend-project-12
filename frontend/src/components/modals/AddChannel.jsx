@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   Modal, Form, Button, FormControl,
 } from 'react-bootstrap';
@@ -10,15 +10,17 @@ import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
 import { getChannelsNames } from '../../slices/channelsSlice.js';
-import { closeModal } from '../../slices/modalsSlice.js';
 
-const AddChannel = () => {
+const AddChannel = ({ shown, hide }) => {
   const inputRef = useRef();
   const { t } = useTranslation();
-  const dispatch = useDispatch();
 
   const { addChannel } = useChatWS();
   const channels = useSelector(getChannelsNames);
+
+  const hideModal = () => {
+    hide();
+  };
 
   const notify = (status) => {
     if (status === 'ok') {
@@ -44,21 +46,17 @@ const AddChannel = () => {
         name: newChannelsName,
       };
       addChannel(newChannel, notify);
-      dispatch(closeModal());
+      hideModal();
     },
     validationSchema: getValidationSchema(channels),
   });
-
-  const hideModal = () => {
-    dispatch(closeModal());
-  };
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
   return (
-    <Modal show onHide={hideModal} animation={true}>
+    <Modal show={shown} onHide={hideModal} animation={true}>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.addChannel')}</Modal.Title>
       </Modal.Header>
