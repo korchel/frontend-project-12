@@ -2,9 +2,9 @@ import React from 'react';
 import { Navbar, Container, ButtonGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import LogOutButton from './LogoutButton.jsx';
-import LoginButton from './LoginButton.jsx';
-import LanguageButton from './LanguageButton.jsx';
+import LogOutButton from './components/LogoutButton';
+import LoginButton from './components/LoginButton';
+import LanguageButton from './components/LanguageButton';
 
 const Header = () => (
   <Navbar bg="wight" expand="lg" className="shadow-sm">

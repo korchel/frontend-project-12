@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import {
-  Formik, Form, Field, ErrorMessage, useFormik,
-} from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import {
-  Container, Row, Col, Card, Image,
+  Container, Row, Col, Card,
+  Image, Form, FloatingLabel,
+  FormControl, Button,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
@@ -33,6 +33,12 @@ const LoginPage = () => {
   });
 
   const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema: loginSchema,
+    validateOnBlur: false,
     onSubmit: ({ username, password }, actions) => {
       setauthFailed(false);
       axios.post(routes.loginPath(), {
@@ -51,7 +57,6 @@ const LoginPage = () => {
         });
     },
   });
-
   return (
     <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
@@ -61,55 +66,52 @@ const LoginPage = () => {
               <Col md={6} xs={12} className="d-flex align-items-center justify-content-center">
                 <Image src={image} alt="#" className="rounded-circle" />
               </Col>
-              <Formik
-                initialValues={{
-                  username: '',
-                  password: '',
-                }}
-                onSubmit={formik.handleSubmit}
-                validationSchema={loginSchema}
-                validateOnBlur={false}
-              >
-                <Form className="col-12 col-md-6 mt-3 mt-mb-0">
-                  <h1 className="text-center mb-4">{t('login.signin')}</h1>
-                  <label style={{ display: 'none' }} htmlFor="username">{t('login.username')}</label>
-                  <Field
-                    type="text"
+              <Form onSubmit={formik.handleSubmit} className="w-50">
+                <h1 className="text-center mb-4">{t('login.signin')}</h1>
+                <Form.Group className="mb-4">
+                  <Form.Label style={{ display: 'none' }} htmlFor="username">{t('login.username')}</Form.Label>
+                  <Form.Control
                     name="username"
-                    placeholder={t('login.username')}
-                    className="form-control form-floating mb-3"
-                    innerRef={ref}
                     id="username"
+                    placeholder={t('login.username')}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.username}
+                    ref={ref}
+                    isInvalid={
+                      (formik.touched.username && formik.errors.username) || authFailed
+                    }
                   />
-                  <ErrorMessage
-                    name="username"
-                    render={(error) => (
-                      <p className="small text-danger">{t(error)}</p>
-                    )}
-                  />
-                  <label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</label>
-                  <Field
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {formik.errors.username && formik.touched.username ? t(formik.errors.username) : null}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-4">
+                  <Form.Label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</Form.Label>
+                  <Form.Control
                     type="password"
                     name="password"
-                    placeholder={t('login.password')}
-                    className="form-control form-floating mb-3"
                     id="password"
+                    placeholder={t('login.password')}
+                    autoComplete="current-password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                    isInvalid={
+                      (formik.touched.username && formik.errors.username) || authFailed
+                    }
                   />
-                  <ErrorMessage
-                    name="password"
-                    render={(error) => (
-                      <p className="feedback m-0 small text-danger">{t(error)}</p>
-                    )}
-                  />
-                  {authFailed
-                    && (
-                      <p className="feedback m-0 small text-danger">
-                        {t('login.wrongNameAndPassword')}
-                      </p>
-                    )}
-                  <button type="submit" className="btn btn-outline-primary w-100 mb-3">{t('login.signin')}</button>
-                </Form>
-              </Formik>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {formik.errors.password && formik.touched.password ? t(formik.errors.password) : null}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                {authFailed &&
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {t('login.wrongNameAndPassword')}
+                  </Form.Control.Feedback>
+                }
+                <Button type="submit" variant="outline-primary" className="w-100 mb-3">{t('login.signin')}</Button>
+              </Form>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
