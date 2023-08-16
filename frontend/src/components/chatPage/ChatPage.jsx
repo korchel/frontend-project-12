@@ -31,9 +31,11 @@ const Chat = () => {
   };
 
   return (loadingState === 'loading'
-    ? <div className="h-100 d-flex justify-content-center align-items-center">
-        <Spinner variant="secondary"/> 
+    ? (
+      <div className="h-100 d-flex justify-content-center align-items-center">
+        <Spinner variant="secondary" />
       </div>
+      )
     : (
       <Container className="h-100 my-4 overflow-hidden rounded shadow">
         <Row className="h-100 bg-white flex-md-row">

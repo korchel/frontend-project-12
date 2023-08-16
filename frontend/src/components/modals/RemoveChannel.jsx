@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
 import { getChannelId } from '../../slices/modalsSlice.js';
-import { setDefaultChannel } from '../../slices/channelsSlice.js'
+import { setDefaultChannel } from '../../slices/channelsSlice.js';
 
 const RemoveChannel = ({ shown, hide }) => {
   const { t } = useTranslation();

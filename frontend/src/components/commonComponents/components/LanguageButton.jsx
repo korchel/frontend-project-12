@@ -8,26 +8,26 @@ const LanguageButton = () => {
   const changeLanguage = (e) => {
     const language = e.target.dataset.id;
     i18n.changeLanguage(language);
-  }
+  };
 
   return (
     <Dropdown as={ButtonGroup}>
       <Dropdown.Toggle
         className="flex-grow-0"
-        variant='primary'
+        variant="primary"
       >
         {t('language.currentLanguage')}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item 
+        <Dropdown.Item
           onClick={changeLanguage}
-          data-id='ru'
+          data-id="ru"
         >
           {t('language.russian')}
         </Dropdown.Item>
-        <Dropdown.Item 
+        <Dropdown.Item
           onClick={changeLanguage}
-          data-id='en'
+          data-id="en"
         >
           {t('language.english')}
         </Dropdown.Item>

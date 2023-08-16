@@ -19,7 +19,7 @@ const Channels = ({ showModal }) => {
   };
 
   const openModal = () => {
-    showModal('add')
+    showModal('add');
   };
 
   return (

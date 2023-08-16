@@ -57,7 +57,7 @@ const RenameChannel = ({ shown, hide }) => {
   }, []);
 
   return (
-    <Modal show onHide={hideModal}>
+    <Modal show={shown} onHide={hideModal}>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.renameChannel')}</Modal.Title>
       </Modal.Header>

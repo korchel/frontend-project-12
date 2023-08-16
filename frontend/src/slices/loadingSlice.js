@@ -7,7 +7,7 @@ import routes from '../routes';
 export const fetch = createAsyncThunk(
   'fetch',
   async (token) => {
-    const responce = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${token}` }});
+    const responce = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${token}` } });
     const { channels, currentChannelId, messages } = responce.data;
     return { channels, currentChannelId, messages };
   },
@@ -36,8 +36,8 @@ const loadingSlice = createSlice({
       .addCase(fetch.rejected, (state, action) => {
         state.loadingState = 'failed';
         state.error = action.error;
-      })
-  }
+      });
+  },
 });
 
 export const getloadingState = (state) => state.loadingReducer.loadingState;

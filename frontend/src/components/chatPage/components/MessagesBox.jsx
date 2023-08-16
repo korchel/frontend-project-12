@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { animateScroll } from "react-scroll";
+import { animateScroll } from 'react-scroll';
 
 const MessagesBox = ({ messages }) => {
   useEffect(() => {
-    animateScroll.scrollToBottom({containerId: 'messages-box', duration: 0});
+    animateScroll.scrollToBottom({ containerId: 'messages-box', duration: 0 });
   });
 
   return (

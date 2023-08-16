@@ -126,7 +126,9 @@ const SignupPage = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.passwordConfirm}
                     isInvalid={
-                      (formik.touched.passwordConfirm && formik.errors.passwordConfirm) || signupFailed
+                      (formik.touched.passwordConfirm
+                        && formik.errors.passwordConfirm)
+                        || signupFailed
                     }
                   />
                   <Form.Text className="text-danger">

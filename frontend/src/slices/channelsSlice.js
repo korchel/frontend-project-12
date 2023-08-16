@@ -21,7 +21,7 @@ const channelsSlice = createSlice({
     },
     setDefaultChannel: (state) => {
       state.currentChannelId = 1;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder

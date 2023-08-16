@@ -4,7 +4,7 @@ import { initReactI18next, I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { io } from 'socket.io-client';
 import leoProfanity from 'leo-profanity';
-import { Provider as RollbarProvider, ErrorBoundary as RollbarErrorBoundary} from '@rollbar/react';
+import { Provider as RollbarProvider, ErrorBoundary as RollbarErrorBoundary } from '@rollbar/react';
 
 import resources from './locales/index';
 import App from './App';
@@ -48,7 +48,7 @@ const init = async () => {
   });
 
   const rollbarConfig = {
-    accessToken: process.env.POST_CLIENT_ITEM_ACCESS_TOKEN,
+    accessToken: process.env.REACT_APP_ROLLBAR_ACCESS_TOKEN,
     environment: 'production',
   };
 

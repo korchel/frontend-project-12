@@ -8,7 +8,7 @@ class ErrorBoundary extends React.Component {
     super(props);
     this.state = { hasError: false };
   }
-  /* не понимаю, откуда взялся этот метод */
+
   static getDerivedStateFromError(error) {
     return { hasError: true };
   }
@@ -35,7 +35,7 @@ class ErrorBoundary extends React.Component {
       );
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 

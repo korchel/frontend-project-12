@@ -56,7 +56,7 @@ const AddChannel = ({ shown, hide }) => {
   }, []);
 
   return (
-    <Modal show={shown} onHide={hideModal} animation={true}>
+    <Modal show={shown} onHide={hideModal} animation>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.addChannel')}</Modal.Title>
       </Modal.Header>
