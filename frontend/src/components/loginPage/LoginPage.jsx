@@ -5,8 +5,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import {
   Container, Row, Col, Card,
-  Image, Form, FloatingLabel,
-  FormControl, Button,
+  Image, Form, Button,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
@@ -78,13 +77,16 @@ const LoginPage = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.username}
                     ref={ref}
+                    ria-descriebedby="tooltip-1"
                     isInvalid={
                       (formik.touched.username && formik.errors.username) || authFailed
                     }
                   />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {formik.errors.username && formik.touched.username ? t(formik.errors.username) : null}
-                  </Form.Control.Feedback>
+                  <Form.Text className="text-danger">
+                    {formik.errors.username && formik.touched.username
+                      ? t(formik.errors.username)
+                      : null}
+                  </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-4">
                   <Form.Label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</Form.Label>
@@ -101,15 +103,15 @@ const LoginPage = () => {
                       (formik.touched.username && formik.errors.username) || authFailed
                     }
                   />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {formik.errors.password && formik.touched.password ? t(formik.errors.password) : null}
-                  </Form.Control.Feedback>
+                  <Form.Text className="text-danger">
+                    {formik.errors.password && formik.touched.password
+                      ? t(formik.errors.password)
+                      : null}
+                  </Form.Text>
                 </Form.Group>
-                {authFailed &&
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {t('login.wrongNameAndPassword')}
-                  </Form.Control.Feedback>
-                }
+                <Form.Text className="text-danger">
+                  {authFailed ? t('login.wrongNameAndPassword') : null}
+                </Form.Text>
                 <Button type="submit" variant="outline-primary" className="w-100 mb-3">{t('login.signin')}</Button>
               </Form>
             </Card.Body>
