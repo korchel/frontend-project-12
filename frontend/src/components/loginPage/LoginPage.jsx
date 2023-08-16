@@ -70,6 +70,7 @@ const LoginPage = () => {
                 <Form.Group className="mb-4">
                   <Form.Label style={{ display: 'none' }} htmlFor="username">{t('login.username')}</Form.Label>
                   <Form.Control
+                    type="text"
                     name="username"
                     id="username"
                     placeholder={t('login.username')}
@@ -95,12 +96,11 @@ const LoginPage = () => {
                     name="password"
                     id="password"
                     placeholder={t('login.password')}
-                    autoComplete="current-password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                     isInvalid={
-                      (formik.touched.username && formik.errors.username) || authFailed
+                      (formik.touched.password && formik.errors.password) || authFailed
                     }
                   />
                   <Form.Text className="text-danger">
