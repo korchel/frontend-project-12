@@ -10,7 +10,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Eye, EyeSlash } from 'react-bootstrap-icons';
 
-
 import image from '../../assets/login.jpg';
 import routes from '../../routes.js';
 import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
@@ -25,7 +24,7 @@ const LoginPage = () => {
 
   const handleShowPassword = () => {
     setShowpassword(!showPassword);
-  }
+  };
 
   useEffect(() => {
     ref.current.focus();
@@ -100,7 +99,7 @@ const LoginPage = () => {
                   <Form.Label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</Form.Label>
                   <InputGroup>
                     <Form.Control
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       name="password"
                       id="password"
                       placeholder={t('login.password')}
