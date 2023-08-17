@@ -44,16 +44,17 @@ const Chat = () => {
     : (
       <>
         {connectionError
-        ? <Error />
-        : (
-          <Container className="h-100 my-4 overflow-hidden rounded shadow">
-            <Row className="h-100 bg-white flex-md-row">
-              <Channels showModal={showModal} />
-              <Messages />
-            </Row>
-            <Modal />
-          </Container>
-        )}
+          ? <Error />
+          : (
+            <Container className="h-100 my-4 overflow-hidden rounded shadow">
+              <Row className="h-100 bg-white flex-md-row">
+                <Channels showModal={showModal} />
+                <Messages />
+              </Row>
+              <Modal />
+            </Container>
+          )
+        }
       </>
     );
 };
