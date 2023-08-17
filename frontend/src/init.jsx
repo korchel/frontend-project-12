@@ -8,7 +8,6 @@ import { Provider as RollbarProvider, ErrorBoundary as RollbarErrorBoundary } fr
 
 import resources from './locales/index';
 import App from './App';
-import ErrorBoundary from './components/ErrorBoundary';
 import store from './slices/index.js';
 import { ChatWSProvider } from './contexts/chatWSContext/ChatWSContext.jsx';
 import { addMessage } from './slices/messagesSlice';
@@ -56,15 +55,13 @@ const init = async () => {
     <RollbarProvider config={rollbarConfig}>
       <RollbarErrorBoundary>
         <StrictMode>
-          <ErrorBoundary>
-            <Provider store={store}>
-              <I18nextProvider i18n={i18n}>
-                <ChatWSProvider webSocket={webSocket}>
-                  <App />
-                </ChatWSProvider>
-              </I18nextProvider>
-            </Provider>
-          </ErrorBoundary>
+          <Provider store={store}>
+            <I18nextProvider i18n={i18n}>
+              <ChatWSProvider webSocket={webSocket}>
+                <App />
+              </ChatWSProvider>
+            </I18nextProvider>
+          </Provider>
         </StrictMode>
       </RollbarErrorBoundary>
     </RollbarProvider>

@@ -25,7 +25,7 @@ const AuthProvider = ({ children }) => {
     setLoggedIn(false);
   };
 
-  const value = { 
+  const value = {
     loggedIn, logIn, logOut, username, token, getAuthHeader,
   };
 

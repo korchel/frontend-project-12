@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import routes from '../routes';
 
-export const fetch = createAsyncThunk(
+export const fetchData = createAsyncThunk(
   'fetch',
   async (token) => {
     const responce = await axios.get(routes.dataPath(), { headers: { Authorization: `Bearer ${token}` } });
@@ -15,7 +15,8 @@ export const fetch = createAsyncThunk(
 
 const initialState = {
   loadingState: 'idle',
-  error: null,
+  loadingError: null,
+  connectionError: false,
   data: null,
 };
 
@@ -24,22 +25,29 @@ const loadingSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(fetch.pending, (state) => {
+      .addCase(fetchData.pending, (state) => {
         state.loadingState = 'loading';
         state.error = null;
       })
-      .addCase(fetch.fulfilled, (state, action) => {
+      .addCase(fetchData.fulfilled, (state, action) => {
         state.data = action.payload;
         state.loadingState = 'idle';
         state.error = null;
       })
-      .addCase(fetch.rejected, (state, action) => {
+      .addCase(fetchData.rejected, (state, action) => {
         state.loadingState = 'failed';
-        state.error = action.error;
+        if (!action.error.isAxiosError) {
+          state.connectionError = true;
+        }
+        if (action.error?.response.status === 401) {
+          state.loadingError = action.error;
+        }
       });
   },
 });
 
 export const getloadingState = (state) => state.loadingReducer.loadingState;
-export const getLoadingError = (state) => state.loadingReducer.error;
+export const getLoadingError = (state) => state.loadingReducer.loadingError;
+export const getConnectionError = (state) => state.loadingReducer.connectionError;
+
 export default loadingSlice.reducer;

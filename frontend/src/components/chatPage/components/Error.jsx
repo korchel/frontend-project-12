@@ -9,9 +9,9 @@ const Error = () => {
   return (
     <div className="h-100 d-flex justify-content-center align-items-center">
       <h3>{t('error.somethingWentWrong')}</h3>
-      <Button 
+      <Button
         as={Link}
-        to="/login"
+        to="/"
         className="text-start rounded"
         variant="secondary"
       >

@@ -2,7 +2,7 @@
 import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 import { removeChannel } from './channelsSlice';
-import { fetch } from './loadingSlice.js';
+import { fetchData } from './loadingSlice.js';
 
 const messagesAdapter = createEntityAdapter();
 
@@ -27,7 +27,7 @@ const messagesSlice = createSlice({
           .map((message) => message.id);
         messagesAdapter.removeMany(state, messagesIds);
       })
-      .addCase(fetch.fulfilled, (state, action) => {
+      .addCase(fetchData.fulfilled, (state, action) => {
         messagesAdapter.addMany(state, action.payload.messages);
       });
   },

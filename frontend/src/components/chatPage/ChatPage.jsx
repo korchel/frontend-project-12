@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Row, Spinner } from 'react-bootstrap';
 
 import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
-import { fetch, getLoadingError, getloadingState } from '../../slices/loadingSlice.js';
+import { fetchData, getLoadingError, getloadingState, getConnectionError } from '../../slices/loadingSlice.js';
 import Channels from './components/Channels.jsx';
 import Messages from './components/Messages.jsx';
 import Modal from '../modals/Modal.jsx';
+import Error from './components/Error.jsx';
 import { openModal } from '../../slices/modalsSlice.js';
 
 const Chat = () => {
@@ -15,16 +16,18 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   const loadingError = useSelector(getLoadingError);
+  const connectionError = useSelector(getConnectionError);
   const loadingState = useSelector(getloadingState);
-  const { token } = useAuth();
+
+  const { token, logOut } = useAuth();
 
   useEffect(() => {
-    dispatch(fetch(token));
-
-    if (loadingError && loadingError.response.status === 401) {
+    dispatch(fetchData(token));
+    if (loadingError) {
+      logOut(); // ??
       navigate('/login');
     }
-  }, [dispatch, loadingError, navigate, token]);
+  }, [dispatch, loadingError, navigate, token, logOut]);
 
   const showModal = (type, id = null) => {
     dispatch(openModal({ type, id }));
@@ -35,7 +38,9 @@ const Chat = () => {
       <div className="h-100 d-flex justify-content-center align-items-center">
         <Spinner variant="secondary" />
       </div>
-      )
+    )
+    : connectionError
+    ? <Error />
     : (
       <Container className="h-100 my-4 overflow-hidden rounded shadow">
         <Row className="h-100 bg-white flex-md-row">
