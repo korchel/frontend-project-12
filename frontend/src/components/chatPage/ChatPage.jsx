@@ -33,24 +33,25 @@ const Chat = () => {
     dispatch(openModal({ type, id }));
   };
 
-  return (loadingState === 'loading'
+  return loadingState === 'loading'
     ? (
       <div className="h-100 d-flex justify-content-center align-items-center">
         <Spinner variant="secondary" />
       </div>
     )
-    : connectionError
-    ? <Error />
-    : (
-      <Container className="h-100 my-4 overflow-hidden rounded shadow">
-        <Row className="h-100 bg-white flex-md-row">
-          <Channels showModal={showModal} />
-          <Messages />
-        </Row>
-        <Modal />
-      </Container>
-    )
-  );
+    : <>
+      {connectionError 
+      ? <Error />
+      : (
+        <Container className="h-100 my-4 overflow-hidden rounded shadow">
+          <Row className="h-100 bg-white flex-md-row">
+            <Channels showModal={showModal} />
+            <Messages />
+          </Row>
+          <Modal />
+        </Container>
+      )}
+    </>
 };
 
 export default Chat;
