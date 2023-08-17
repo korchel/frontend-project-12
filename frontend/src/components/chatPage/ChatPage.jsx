@@ -4,7 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Row, Spinner } from 'react-bootstrap';
 
 import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
-import { fetchData, getLoadingError, getloadingState, getConnectionError } from '../../slices/loadingSlice.js';
+import {
+  fetchData, getLoadingError, getloadingState, getConnectionError,
+} from '../../slices/loadingSlice.js';
 import Channels from './components/Channels.jsx';
 import Messages from './components/Messages.jsx';
 import Modal from '../modals/Modal.jsx';
@@ -39,19 +41,21 @@ const Chat = () => {
         <Spinner variant="secondary" />
       </div>
     )
-    : <>
-      {connectionError 
-      ? <Error />
-      : (
-        <Container className="h-100 my-4 overflow-hidden rounded shadow">
-          <Row className="h-100 bg-white flex-md-row">
-            <Channels showModal={showModal} />
-            <Messages />
-          </Row>
-          <Modal />
-        </Container>
-      )}
-    </>
+    : (
+      <>
+        {connectionError
+        ? <Error />
+        : (
+          <Container className="h-100 my-4 overflow-hidden rounded shadow">
+            <Row className="h-100 bg-white flex-md-row">
+              <Channels showModal={showModal} />
+              <Messages />
+            </Row>
+            <Modal />
+          </Container>
+        )}
+      </>
+    );
 };
 
 export default Chat;
