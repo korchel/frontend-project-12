@@ -6,7 +6,7 @@ const LanguageButton = () => {
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (e) => {
-    const language = e.target.dataset.id;
+    const language = e.target.id;
     i18n.changeLanguage(language);
   };
 
@@ -21,13 +21,13 @@ const LanguageButton = () => {
       <Dropdown.Menu>
         <Dropdown.Item
           onClick={changeLanguage}
-          data-id="ru"
+          id="ru"
         >
           {t('language.russian')}
         </Dropdown.Item>
         <Dropdown.Item
           onClick={changeLanguage}
-          data-id="en"
+          id="en"
         >
           {t('language.english')}
         </Dropdown.Item>
