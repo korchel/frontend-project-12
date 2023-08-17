@@ -5,9 +5,11 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import {
   Container, Row, Col, Card,
-  Image, Form, Button,
+  Image, Form, Button, InputGroup,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Eye, EyeSlash } from 'react-bootstrap-icons';
+
 
 import image from '../../assets/login.jpg';
 import routes from '../../routes.js';
@@ -19,6 +21,11 @@ const LoginPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [authFailed, setauthFailed] = useState(false);
+  const [showPassword, setShowpassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowpassword(!showPassword);
+  }
 
   useEffect(() => {
     ref.current.focus();
@@ -91,18 +98,25 @@ const LoginPage = () => {
                 </Form.Group>
                 <Form.Group className="mb-4">
                   <Form.Label style={{ display: 'none' }} htmlFor="password">{t('login.password')}</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder={t('login.password')}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.password}
-                    isInvalid={
-                      (formik.touched.password && formik.errors.password) || authFailed
-                    }
-                  />
+                  <InputGroup>
+                    <Form.Control
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      id="password"
+                      placeholder={t('login.password')}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
+                      isInvalid={
+                        (formik.touched.password && formik.errors.password) || authFailed
+                      }
+                    />
+                    <Button
+                      onClick={handleShowPassword}
+                    >
+                      {showPassword ? <EyeSlash /> : <Eye />}
+                    </Button>
+                  </InputGroup>
                   <Form.Text className="text-danger">
                     {formik.errors.password && formik.touched.password
                       ? t(formik.errors.password)
