@@ -44,7 +44,7 @@ export const getCurrentChannel = (state) => {
 };
 
 export const getChannelsNames = createSelector(
-  (state) => state.channelsReducer.entities,
+  [(state) => state.channelsReducer.entities],
   (entities) => Object.values(entities).map((channel) => channel.name),
 );
 

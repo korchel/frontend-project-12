@@ -12,7 +12,7 @@ const MessagesInput = ({ currentChannelId }) => {
   const inputRef = useRef(null);
   const { t } = useTranslation();
   const { sendMessage } = useChatWS();
-  const { username } = useAuth();
+  const { userData } = useAuth();
 
   const formik = useFormik({
     initialValues: { message: '' },
@@ -22,7 +22,7 @@ const MessagesInput = ({ currentChannelId }) => {
         const newMessage = {
           body: filteredMessage,
           channelId: currentChannelId,
-          username,
+          username: userData.username,
         };
         sendMessage(newMessage);
       }

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Col } from 'react-bootstrap';
 
-import { selectors as messagesSelectors } from '../../../slices/messagesSlice.js';
+import { getCurrentMessages } from '../../../slices/messagesSlice.js';
 import { getCurrentChannelId, getCurrentChannel } from '../../../slices/channelsSlice.js';
 
 import MessagesHeader from './MessagesHeader.jsx';
@@ -12,10 +12,7 @@ import MessagesInput from './MessagesInput.jsx';
 const Messages = () => {
   const currentChannelId = useSelector(getCurrentChannelId);
   const currentChannel = useSelector(getCurrentChannel);
-
-  const messages = useSelector(messagesSelectors.selectAll);
-
-  const currentsMessages = messages.filter((message) => message.channelId === currentChannelId);
+  const currentsMessages = useSelector(getCurrentMessages(currentChannelId));
 
   return (
     <Col className="p-0 h-100">
