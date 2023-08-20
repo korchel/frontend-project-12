@@ -13,16 +13,16 @@ import { AuthProvider, useAuth } from './contexts/authContext/AuthContext.jsx';
 import routes from './routes';
 
 const LoggedInRoute = () => {
-  const { loggedIn } = useAuth();
+  const { userData } = useAuth();
   return (
-    loggedIn ? <Outlet /> : <Navigate to={routes.loginRoute()} />
+    userData ? <Outlet /> : <Navigate to={routes.loginRoute()} />
   );
 };
 
 const LoggedOutRoute = () => {
-  const { loggedIn } = useAuth();
+  const { userData } = useAuth();
   return (
-    !loggedIn ? <Outlet /> : <Navigate to={routes.chatRoute()} />
+    !userData ? <Outlet /> : <Navigate to={routes.chatRoute()} />
   );
 };
 

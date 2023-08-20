@@ -17,7 +17,7 @@ import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
 const LoginPage = () => {
   const { t } = useTranslation();
   const ref = useRef(null);
-  const auth = useAuth();
+  const { logIn } = useAuth();
   const navigate = useNavigate();
   const [authFailed, setauthFailed] = useState(false);
   const [showPassword, setShowpassword] = useState(false);
@@ -51,7 +51,7 @@ const LoginPage = () => {
         password,
       })
         .then((response) => {
-          auth.logIn(response.data);
+          logIn(response.data);
           navigate(routes.chatRoute());
         })
         .catch((error) => {

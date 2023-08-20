@@ -22,15 +22,15 @@ const Chat = () => {
   const connectionError = useSelector(getConnectionError);
   const loadingState = useSelector(getloadingState);
 
-  const { token, logOut } = useAuth();
+  const { userData, logOut } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchData(token));
+    dispatch(fetchData(userData.token));
     if (loadingError) {
-      logOut(); // ??
+      logOut();
       navigate(routes.loginRoute());
     }
-  }, [dispatch, loadingError, navigate, token, logOut]);
+  }, [dispatch, loadingError, navigate, userData.token, logOut]);
 
   const showModal = (type, id = null) => {
     dispatch(openModal({ type, id }));

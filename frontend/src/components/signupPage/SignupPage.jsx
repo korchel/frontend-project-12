@@ -16,7 +16,7 @@ const SignupPage = () => {
   const { t } = useTranslation();
   const ref = useRef(null);
   const navigate = useNavigate();
-  const auth = useAuth();
+  const { logIn } = useAuth();
   const [signupFailed, setSignupFailed] = useState(false);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const SignupPage = () => {
         password,
       })
         .then((response) => {
-          auth.logIn(response.data);
+          logIn(response.data);
           navigate(routes.chatRoute());
         })
         .catch((error) => {

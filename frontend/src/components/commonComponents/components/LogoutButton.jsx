@@ -7,12 +7,12 @@ import { useAuth } from '../../../contexts/authContext/AuthContext.jsx';
 import routes from '../../../routes.js';
 
 const LogOutButton = () => {
-  const auth = useAuth();
+  const { logOut, userData } = useAuth();
   const { t } = useTranslation();
 
   return (
-    auth.loggedIn && (
-      <Button as={Link} to={routes.loginRoute()} onClick={auth.logOut}>
+    userData && (
+      <Button as={Link} to={routes.loginRoute()} onClick={ logOut }>
         {t('header.logout')}
       </Button>
     )
