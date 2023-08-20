@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../../contexts/authContext/AuthContext.jsx';
+import routes from '../../../routes.js';
 
 const LogOutButton = () => {
   const auth = useAuth();
@@ -11,7 +12,7 @@ const LogOutButton = () => {
 
   return (
     auth.loggedIn && (
-      <Button as={Link} to="/login" onClick={auth.logOut}>
+      <Button as={Link} to={routes.loginRoute()} onClick={auth.logOut}>
         {t('header.logout')}
       </Button>
     )

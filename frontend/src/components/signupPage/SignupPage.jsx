@@ -52,7 +52,7 @@ const SignupPage = () => {
       })
         .then((response) => {
           auth.logIn(response.data);
-          navigate('/');
+          navigate(routes.chatRoute());
         })
         .catch((error) => {
           actions.setSubmitting(false);

@@ -10,18 +10,19 @@ import SignupPage from './components/signupPage/SignupPage';
 import Chat from './components/chatPage/ChatPage';
 import NotFoundPage from './components/notFoundPage/NotFoundPage';
 import { AuthProvider, useAuth } from './contexts/authContext/AuthContext.jsx';
+import routes from './routes';
 
 const LoggedInRoute = () => {
   const { loggedIn } = useAuth();
   return (
-    loggedIn ? <Outlet /> : <Navigate to="/login" />
+    loggedIn ? <Outlet /> : <Navigate to={routes.loginRoute()} />
   );
 };
 
 const LoggedOutRoute = () => {
   const { loggedIn } = useAuth();
   return (
-    !loggedIn ? <Outlet /> : <Navigate to="/" />
+    !loggedIn ? <Outlet /> : <Navigate to={routes.chatRoute()} />
   );
 };
 
@@ -31,14 +32,14 @@ const App = () => (
       <div className="d-flex flex-column h-100">
         <Header />
         <Routes>
-          <Route path="/" element={<LoggedInRoute />}>
-            <Route path="/" element={<Chat />} />
+          <Route path={routes.chatRoute()} element={<LoggedInRoute />}>
+            <Route path={routes.chatRoute()} element={<Chat />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/login" element={<LoggedOutRoute />}>
+          <Route path={routes.loginRoute()} element={<LoggedOutRoute />}>
             <Route path="" element={<LoginPage />} />
           </Route>
-          <Route path="/signup" element={<LoggedOutRoute />}>
+          <Route path={routes.signupRoute()} element={<LoggedOutRoute />}>
             <Route path="" element={<SignupPage />} />
           </Route>
         </Routes>

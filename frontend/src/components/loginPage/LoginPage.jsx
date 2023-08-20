@@ -52,7 +52,7 @@ const LoginPage = () => {
       })
         .then((response) => {
           auth.logIn(response.data);
-          navigate('/');
+          navigate(routes.chatRoute());
         })
         .catch((error) => {
           actions.setSubmitting(false);
@@ -111,6 +111,9 @@ const LoginPage = () => {
                       }
                     />
                     <Button
+                      variant={formik.errors.password && formik.touched.password
+                        ? "outline-danger"
+                        : "outline-secondary"}
                       onClick={handleShowPassword}
                     >
                       {showPassword ? <EyeSlash /> : <Eye />}
@@ -131,7 +134,7 @@ const LoginPage = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span className="px-1">{t('login.noAccountYet')}</span>
-                <Link to="/signup">{t('login.signup')}</Link>
+                <Link to={routes.signupRoute()}>{t('login.signup')}</Link>
               </div>
             </Card.Footer>
           </Card>

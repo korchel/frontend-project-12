@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
+import routes from '../../../routes';
+
 const Error = () => {
   const { t } = useTranslation();
 
@@ -11,7 +13,7 @@ const Error = () => {
       <h3>{t('error.somethingWentWrong')}</h3>
       <Button
         as={Link}
-        to="/"
+        to={routes.chatRoute()}
         className="text-start rounded"
         variant="secondary"
       >

@@ -12,6 +12,7 @@ import Messages from './components/Messages.jsx';
 import Modal from '../modals/Modal.jsx';
 import Error from './components/Error.jsx';
 import { openModal } from '../../slices/modalsSlice.js';
+import routes from '../../routes.js';
 
 const Chat = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Chat = () => {
     dispatch(fetchData(token));
     if (loadingError) {
       logOut(); // ??
-      navigate('/login');
+      navigate(routes.loginRoute());
     }
   }, [dispatch, loadingError, navigate, token, logOut]);
 
