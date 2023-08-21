@@ -12,7 +12,7 @@ import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
 import { getChannelsNames } from '../../slices/channelsSlice.js';
 
 const AddChannel = ({ shown, hide }) => {
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const { t } = useTranslation();
 
   const { addChannel } = useChatWS();

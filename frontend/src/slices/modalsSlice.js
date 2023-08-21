@@ -18,7 +18,6 @@ const modalsSlice = createSlice({
     },
     closeModal: (state) => {
       state.shown = false;
-      state.channelId = null;
     },
   },
 });

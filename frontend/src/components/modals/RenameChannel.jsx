@@ -15,7 +15,7 @@ import { getChannelId } from '../../slices/modalsSlice.js';
 const RenameChannel = ({ shown, hide }) => {
   const { t } = useTranslation();
   const { renameChannel } = useChatWS();
-  const inputRef = useRef();
+  const inputRef = useRef(null);
 
   const channelsNames = useSelector(getChannelsNames);
   const renamedChannelId = useSelector(getChannelId);
