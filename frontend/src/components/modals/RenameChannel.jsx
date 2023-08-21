@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
-import { selectors, getChannelsNames } from '../../slices/channelsSlice.js';
+import { getChannelsNames, getChannelById } from '../../slices/channelsSlice.js';
 import { getChannelId } from '../../slices/modalsSlice.js';
 
 const RenameChannel = ({ shown, hide }) => {
@@ -17,10 +17,9 @@ const RenameChannel = ({ shown, hide }) => {
   const { renameChannel } = useChatWS();
   const inputRef = useRef();
 
-  const channels = useSelector(selectors.selectAll);
   const channelsNames = useSelector(getChannelsNames);
   const renamedChannelId = useSelector(getChannelId);
-  const [renamedChannel] = channels.filter((channel) => channel.id === renamedChannelId);
+  const renamedChannel = useSelector(getChannelById(renamedChannelId));
 
   const notify = (status) => {
     if (status === 'ok') {
@@ -40,7 +39,7 @@ const RenameChannel = ({ shown, hide }) => {
   });
 
   const formik = useFormik({
-    initialValues: { newName: renamedChannel?.name },
+    initialValues: { newName: renamedChannel.name },
     onSubmit: ({ newName }) => {
       renameChannel(newName, renamedChannelId, notify);
       hide();
