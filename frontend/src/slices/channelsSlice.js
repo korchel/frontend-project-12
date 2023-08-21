@@ -48,9 +48,6 @@ export const getChannelsNames = createSelector(
   (entities) => Object.values(entities).map((channel) => channel.name),
 );
 
-export const getChannelById = (id) => createSelector(
-  [(state) => state.channelsReducer.entities],
-  (entities) => Object.values(entities).filter((channel) => channel.id === id)[0],
-)
+export const getChannelById = (id) => (state) => state.channelsReducer.entities[id];
 
 export default channelsSlice.reducer;

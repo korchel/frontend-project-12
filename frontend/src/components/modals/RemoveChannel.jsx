@@ -30,19 +30,15 @@ const RemoveChannel = ({ shown, hide }) => {
     hide();
   };
 
-  const hideModal = () => {
-    hide();
-  };
-
   return (
-    <Modal show={shown} onHide={hideModal}>
+    <Modal show={shown} onHide={hide}>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.removeChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p className="lead">{t('chat.modals.areYouSure')}</p>
         <div className="d-flex justify-content-end">
-          <Button variant="secondary" className="me-2" onClick={hideModal}>
+          <Button variant="secondary" className="me-2" onClick={hide}>
             {t('chat.modals.cancel')}
           </Button>
           <Button type="submit" variant="danger" onClick={handleDelete}>

@@ -47,16 +47,12 @@ const RenameChannel = ({ shown, hide }) => {
     validationSchema: getValidationSchema(),
   });
 
-  const hideModal = () => {
-    hide();
-  };
-
   useEffect(() => {
     inputRef.current.select();
   }, []);
 
   return (
-    <Modal show={shown} onHide={hideModal}>
+    <Modal show={shown} onHide={hide}>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.renameChannel')}</Modal.Title>
       </Modal.Header>
@@ -80,7 +76,7 @@ const RenameChannel = ({ shown, hide }) => {
             </FormControl.Feedback>
             <div className="d-flex justify-content-end">
               <Button
-                onClick={hideModal}
+                onClick={hide}
                 className="me-2"
                 variant="secondary"
               >

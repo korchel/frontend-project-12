@@ -18,10 +18,6 @@ const AddChannel = ({ shown, hide }) => {
   const { addChannel } = useChatWS();
   const channels = useSelector(getChannelsNames);
 
-  const hideModal = () => {
-    hide();
-  };
-
   const notify = (status) => {
     if (status === 'ok') {
       toast.success(t('chat.modals.channelCreated'));
@@ -46,7 +42,7 @@ const AddChannel = ({ shown, hide }) => {
         name: newChannelsName,
       };
       addChannel(newChannel, notify);
-      hideModal();
+      hide();
     },
     validationSchema: getValidationSchema(channels),
   });
@@ -56,7 +52,7 @@ const AddChannel = ({ shown, hide }) => {
   }, []);
 
   return (
-    <Modal show={shown} onHide={hideModal} animation>
+    <Modal show={shown} onHide={hide} animation>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.addChannel')}</Modal.Title>
       </Modal.Header>
@@ -77,7 +73,7 @@ const AddChannel = ({ shown, hide }) => {
               {t(formik.errors.newChannelsName)}
             </FormControl.Feedback>
             <div className="d-flex justify-content-end">
-              <Button onClick={hideModal} className="me-2" variant="secondary">{t('chat.modals.cancel')}</Button>
+              <Button onClick={hide} className="me-2" variant="secondary">{t('chat.modals.cancel')}</Button>
               <Button type="submit" variant="primary">{t('chat.modals.submit')}</Button>
             </div>
           </Form.Group>
