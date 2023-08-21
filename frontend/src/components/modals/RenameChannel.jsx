@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
 import { getChannelsNames, getChannelById } from '../../slices/channelsSlice.js';
-import { getChannelId } from '../../slices/modalsSlice.js';
+import { getChannelId, getModalType } from '../../slices/modalsSlice.js';
 
 const RenameChannel = ({ shown, hide }) => {
   const { t } = useTranslation();
@@ -20,7 +20,8 @@ const RenameChannel = ({ shown, hide }) => {
   const channelsNames = useSelector(getChannelsNames);
   const renamedChannelId = useSelector(getChannelId);
   const renamedChannel = useSelector(getChannelById(renamedChannelId));
-
+  const modalType = useSelector(getModalType)
+  console.log(modalType)
   const notify = (status) => {
     if (status === 'ok') {
       toast.success(t('chat.modals.channelRenamed'));
@@ -52,7 +53,7 @@ const RenameChannel = ({ shown, hide }) => {
   }, []);
 
   return (
-    <Modal show={shown} onHide={hide}>
+    <>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.renameChannel')}</Modal.Title>
       </Modal.Header>
@@ -87,7 +88,7 @@ const RenameChannel = ({ shown, hide }) => {
           </Form.Group>
         </Form>
       </Modal.Body>
-    </Modal>
+    </>
   );
 };
 
