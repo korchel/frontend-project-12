@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Spinner } from 'react-bootstrap';
 
 import { useAuth } from '../../contexts/authContext/AuthContext.jsx';
 import {
-  fetchData, getLoadingError, getloadingState, getConnectionError,
+  fetchData, getLoadingError, getloadingState,
 } from '../../slices/loadingSlice.js';
 import Channels from './components/Channels.jsx';
 import Messages from './components/Messages.jsx';
@@ -17,20 +17,25 @@ import routes from '../../routes.js';
 const Chat = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [hasError, setHasError] = useState(false);
 
   const loadingError = useSelector(getLoadingError);
-  const connectionError = useSelector(getConnectionError);
   const loadingState = useSelector(getloadingState);
 
   const { userData, logOut } = useAuth();
 
   useEffect(() => {
     dispatch(fetchData(userData.token));
-    if (loadingError) {
+  }, [dispatch, userData.token]);
+
+  if (loadingError) {
+    if (loadingError.response.status === 401) {
       logOut();
       navigate(routes.loginRoute());
+    } else {
+      setHasError(true);
     }
-  }, [dispatch, loadingError, navigate, userData.token, logOut]);
+  }
 
   const showModal = (type, id = null) => {
     dispatch(openModal({ type, id }));
@@ -44,7 +49,7 @@ const Chat = () => {
     )
     : (
       <>
-        {connectionError
+        {hasError
           ? <Error />
           : (
             <Container className="h-100 my-4 overflow-hidden rounded shadow">

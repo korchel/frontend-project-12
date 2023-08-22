@@ -16,7 +16,6 @@ export const fetchData = createAsyncThunk(
 const initialState = {
   loadingState: 'idle',
   loadingError: null,
-  connectionError: false,
   data: null,
 };
 
@@ -36,18 +35,13 @@ const loadingSlice = createSlice({
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.loadingState = 'failed';
-        if (!action.error.isAxiosError) {
-          state.connectionError = true;
-        }
-        if (action.error?.response.status === 401) {
-          state.loadingError = action.error;
-        }
+        state.loadingError = action.error
+
       });
   },
 });
 
 export const getloadingState = (state) => state.loadingReducer.loadingState;
 export const getLoadingError = (state) => state.loadingReducer.loadingError;
-export const getConnectionError = (state) => state.loadingReducer.connectionError;
 
 export default loadingSlice.reducer;
