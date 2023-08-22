@@ -26,7 +26,7 @@ const Modal = () => {
   const Component = modals[modalType];
 
   return (
-    <BootstrapModal show={shown} onHide={hide}> {/* ??? */}
+    <BootstrapModal show={shown} onHide={hide}>
       {Component && <Component hide={hide} />}
     </BootstrapModal>
   );
