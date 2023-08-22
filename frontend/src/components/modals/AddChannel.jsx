@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Modal, Form, Button, FormControl,
 } from 'react-bootstrap';
@@ -9,23 +9,15 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
-import { getChannelsNames } from '../../slices/channelsSlice.js';
+import { getChannelsNames, setCurrentChannelId, addChannel } from '../../slices/channelsSlice.js';
 
-const AddChannel = ({ shown, hide }) => {
+const AddChannel = ({ hide }) => {
   const inputRef = useRef(null);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  const { addChannel } = useChatWS();
+  const { emitAddChannel } = useChatWS();
   const channels = useSelector(getChannelsNames);
-
-  const notify = (status) => {
-    if (status === 'ok') {
-      toast.success(t('chat.modals.channelCreated'));
-    }
-    if (status !== 'ok') {
-      toast.warning(t('chat.modals.connectionError'));
-    }
-  };
 
   const getValidationSchema = () => Yup.object().shape({
     newChannelsName: Yup.string()
@@ -41,7 +33,16 @@ const AddChannel = ({ shown, hide }) => {
       const newChannel = {
         name: newChannelsName,
       };
-      addChannel(newChannel, notify);
+      emitAddChannel(newChannel)
+        .then((channel) => {
+          dispatch(addChannel(channel));
+          dispatch(setCurrentChannelId(channel.id));
+          toast.success(t('chat.modals.channelCreated'));
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.warning(t('chat.modals.connectionError'));
+        });
       hide();
     },
     validationSchema: getValidationSchema(channels),

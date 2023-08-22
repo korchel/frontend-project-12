@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Modal, Form, Button, FormControl, FormLabel,
 } from 'react-bootstrap';
@@ -9,27 +9,18 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useChatWS } from '../../contexts/chatWSContext/ChatWSContext.jsx';
-import { getChannelsNames, getChannelById } from '../../slices/channelsSlice.js';
-import { getChannelId, getModalType } from '../../slices/modalsSlice.js';
+import { getChannelsNames, getChannelById, updateChannel } from '../../slices/channelsSlice.js';
+import { getChannelId } from '../../slices/modalsSlice.js';
 
-const RenameChannel = ({ shown, hide }) => {
+const RenameChannel = ({ hide }) => {
   const { t } = useTranslation();
-  const { renameChannel } = useChatWS();
+  const { emitRenameChannel } = useChatWS();
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
 
   const channelsNames = useSelector(getChannelsNames);
   const renamedChannelId = useSelector(getChannelId);
   const renamedChannel = useSelector(getChannelById(renamedChannelId));
-  const modalType = useSelector(getModalType)
-  console.log(modalType)
-  const notify = (status) => {
-    if (status === 'ok') {
-      toast.success(t('chat.modals.channelRenamed'));
-    }
-    if (status !== 'ok') {
-      toast.warning(t('chat.modals.connectionError'));
-    }
-  };
 
   const getValidationSchema = () => Yup.object().shape({
     newName: Yup.string()
@@ -42,7 +33,16 @@ const RenameChannel = ({ shown, hide }) => {
   const formik = useFormik({
     initialValues: { newName: renamedChannel.name },
     onSubmit: ({ newName }) => {
-      renameChannel(newName, renamedChannelId, notify);
+      emitRenameChannel(newName, renamedChannelId)
+        .then((status) => {
+          console.log(status);
+          dispatch(updateChannel({ renamedChannelId, changes: { newName } }));
+          toast.success(t('chat.modals.channelRenamed'));
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.warning(t('chat.modals.connectionError'));
+        })
       hide();
     },
     validationSchema: getValidationSchema(),

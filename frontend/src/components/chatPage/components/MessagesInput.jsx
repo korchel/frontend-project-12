@@ -11,12 +11,12 @@ import { useAuth } from '../../../contexts/authContext/AuthContext.jsx';
 const MessagesInput = ({ currentChannelId }) => {
   const inputRef = useRef(null);
   const { t } = useTranslation();
-  const { sendMessage } = useChatWS();
+  const { emitSendMessage } = useChatWS();
   const { userData } = useAuth();
 
   const formik = useFormik({
     initialValues: { message: '' },
-    onSubmit: ({ message }, actions) => {
+    onSubmit: async ({ message }, actions) => {
       if (message) {
         const filteredMessage = leoProfanity.clean(message);
         const newMessage = {
@@ -24,7 +24,7 @@ const MessagesInput = ({ currentChannelId }) => {
           channelId: currentChannelId,
           username: userData.username,
         };
-        sendMessage(newMessage);
+        await emitSendMessage(newMessage);
       }
       actions.resetForm();
     },

@@ -1,49 +1,48 @@
 import React, { createContext, useContext } from 'react';
-import { useDispatch } from 'react-redux';
-import { setCurrentChannelId, removeChannel, updateChannel } from '../../slices/channelsSlice';
 
 export const ChatWSContext = createContext();
 
 const ChatWSProvider = ({ webSocket, children }) => {
-  const dispatch = useDispatch();
 
-  const sendMessage = (message) => {
-    webSocket.emit('newMessage', message);
-  };
-
-  const addChannel = (channel, notify) => {
-    webSocket.emit('newChannel', channel, (response) => {
-      const { status, data } = response;
-      if (status === 'ok') {
-        dispatch(setCurrentChannelId(data.id));
+  const emitSendMessage = (message) => new Promise((resolve, reject) => {
+    webSocket.timeout(1000).emit('newMessage', message, (error, response) => {
+      if (response?.status === 'ok') {
+        resolve(response.status);
       }
-      notify(status);
+      reject(error);
     });
-  };
+  });
 
-  const deleteChannel = (id, notify) => {
-    webSocket.emit('removeChannel', { id }, (response) => {
-      const { status } = response;
-      if (response.status === 'ok') {
-        dispatch(removeChannel(id));
+  const emitAddChannel = (channel) => new Promise((resolve, reject) => {
+    webSocket.timeout(1000).emit('newChannel', channel, (error, response) => {
+      if (response?.status === 'ok') {
+        resolve(response.data);
       }
-      notify(status);
+      reject(error);
     });
-  };
+  });
 
-  const renameChannel = (name, id, notify) => {
-    webSocket.emit('renameChannel', { name, id }, (response) => {
-      const { status } = response;
-      if (status === 'ok') {
-        dispatch(updateChannel({ id, changes: { name } }));
+  const emitRemoveChannel = (id) => new Promise((resolve, reject) => {
+    webSocket.timeout(1000).emit('removeChannel', { id }, (error, response) => {
+      if (response?.status === 'ok') {
+        resolve(response.status);
       }
-      notify(status);
+      reject(error);
     });
-  };
+  });
+
+  const emitRenameChannel = (name, id) => new Promise((resolve, reject) => {
+    webSocket.timeout(1000).emit('renameChannel', { name, id }, (error, response) => {
+      if (response?.status === 'ok') {
+        resolve(response.status);
+      }
+      reject(error);
+    });
+  });
 
   return (
     <ChatWSContext.Provider value={{
-      sendMessage, addChannel, deleteChannel, renameChannel,
+      emitSendMessage, emitAddChannel, emitRemoveChannel, emitRenameChannel,
     }}
     >
       {children}
