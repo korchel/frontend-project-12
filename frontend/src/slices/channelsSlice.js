@@ -50,7 +50,7 @@ export const getChannelsNames = createSelector(
 
 export const getChannelById = (id) => createSelector(
   [(state) => state.channelsReducer.entities],
-  (entities) => entities[id]
+  (entities) => entities[id],
 );
 
 export default channelsSlice.reducer;

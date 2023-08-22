@@ -35,8 +35,7 @@ const loadingSlice = createSlice({
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.loadingState = 'failed';
-        state.loadingError = action.error
-
+        state.loadingError = action.error;
       });
   },
 });

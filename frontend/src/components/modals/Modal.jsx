@@ -1,8 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Modal as BootstrapModal, Form, Button, FormControl, FormLabel,
-} from 'react-bootstrap';
+import { Modal as BootstrapModal } from 'react-bootstrap';
 
 import AddChannel from './AddChannel.jsx';
 import RemoveChannel from './RemoveChannel.jsx';
@@ -28,10 +26,10 @@ const Modal = () => {
   const Component = modals[modalType];
 
   return (
-    <BootstrapModal show={shown} onHide={hide}>
-      {Component && <Component hide={hide} />} 
+    <BootstrapModal show={shown} onHide={hide}> {/* ??? */}
+      {Component && <Component hide={hide} />}
     </BootstrapModal>
-  )
+  );
 };
 
 export default Modal;

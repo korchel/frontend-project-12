@@ -42,7 +42,7 @@ const RenameChannel = ({ hide }) => {
         .catch((error) => {
           console.log(error);
           toast.warning(t('chat.modals.connectionError'));
-        })
+        });
       hide();
     },
     validationSchema: getValidationSchema(),

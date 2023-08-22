@@ -19,7 +19,7 @@ const RemoveChannel = ({ hide }) => {
     emitRemoveChannel(removedChannelId)
       .then((status) => {
         console.log(status);
-        dispatch(removeChannel(removedChannelId))
+        dispatch(removeChannel(removedChannelId));
         dispatch(setDefaultChannel());
         toast.success(t('chat.modals.channelRemoved'));
       })

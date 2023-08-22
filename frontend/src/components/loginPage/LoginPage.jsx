@@ -112,8 +112,8 @@ const LoginPage = () => {
                     />
                     <Button
                       variant={formik.errors.password && formik.touched.password
-                        ? "outline-danger"
-                        : "outline-secondary"}
+                        ? 'outline-danger'
+                        : 'outline-secondary'}
                       onClick={handleShowPassword}
                     >
                       {showPassword ? <EyeSlash /> : <Eye />}

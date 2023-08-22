@@ -3,7 +3,6 @@ import React, { createContext, useContext } from 'react';
 export const ChatWSContext = createContext();
 
 const ChatWSProvider = ({ webSocket, children }) => {
-
   const emitSendMessage = (message) => new Promise((resolve, reject) => {
     webSocket.timeout(1000).emit('newMessage', message, (error, response) => {
       if (response?.status === 'ok') {

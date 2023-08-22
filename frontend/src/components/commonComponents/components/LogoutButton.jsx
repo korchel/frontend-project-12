@@ -12,7 +12,7 @@ const LogOutButton = () => {
 
   return (
     userData && (
-      <Button as={Link} to={routes.loginRoute()} onClick={ logOut }>
+      <Button as={Link} to={routes.loginRoute()} onClick={logOut}>
         {t('header.logout')}
       </Button>
     )
