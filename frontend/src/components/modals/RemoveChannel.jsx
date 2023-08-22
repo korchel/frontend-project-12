@@ -31,7 +31,7 @@ const RemoveChannel = ({ shown, hide }) => {
   };
 
   return (
-    <Modal show={shown} onHide={hide}>
+    <>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.removeChannel')}</Modal.Title>
       </Modal.Header>
@@ -46,7 +46,7 @@ const RemoveChannel = ({ shown, hide }) => {
           </Button>
         </div>
       </Modal.Body>
-    </Modal>
+    </>
   );
 };
 

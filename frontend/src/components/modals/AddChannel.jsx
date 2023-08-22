@@ -52,7 +52,7 @@ const AddChannel = ({ shown, hide }) => {
   }, []);
 
   return (
-    <Modal show={shown} onHide={hide} animation>
+    <>
       <Modal.Header closeButton>
         <Modal.Title>{t('chat.modals.addChannel')}</Modal.Title>
       </Modal.Header>
@@ -79,7 +79,7 @@ const AddChannel = ({ shown, hide }) => {
           </Form.Group>
         </Form>
       </Modal.Body>
-    </Modal>
+    </>
   );
 };
 
