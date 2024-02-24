@@ -21,6 +21,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [authFailed, setauthFailed] = useState(false);
   const [showPassword, setShowpassword] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const handleShowPassword = () => {
     setShowpassword(!showPassword);
@@ -46,6 +47,7 @@ const LoginPage = () => {
     validateOnBlur: false,
     onSubmit: ({ username, password }, actions) => {
       setauthFailed(false);
+      setButtonDisabled(true);
       axios.post(routes.loginPath(), {
         username,
         password,
@@ -59,6 +61,7 @@ const LoginPage = () => {
           if (error.isAxiosError && error.response.status === 401) {
             setauthFailed(true);
           }
+          setButtonDisabled(false);
         });
     },
   });
@@ -113,7 +116,7 @@ const LoginPage = () => {
                     <Button
                       variant={formik.errors.password && formik.touched.password
                         ? 'outline-danger'
-                        : 'outline-secondary'}
+                        : 'outline-primary'}
                       onClick={handleShowPassword}
                     >
                       {showPassword ? <EyeSlash /> : <Eye />}
@@ -128,7 +131,14 @@ const LoginPage = () => {
                 <Form.Text className="text-danger">
                   {authFailed ? t('login.wrongNameAndPassword') : null}
                 </Form.Text>
-                <Button type="submit" variant="outline-primary" className="w-100 mb-3">{t('login.signin')}</Button>
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  className="w-100 mb-3"
+                  disabled={buttonDisabled}
+                >
+                  {t('login.signin')}
+                </Button>
               </Form>
             </Card.Body>
             <Card.Footer className="p-4">

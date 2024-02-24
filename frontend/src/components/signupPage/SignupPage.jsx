@@ -18,6 +18,7 @@ const SignupPage = () => {
   const navigate = useNavigate();
   const { logIn } = useAuth();
   const [signupFailed, setSignupFailed] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
     ref.current.focus();
@@ -46,6 +47,7 @@ const SignupPage = () => {
     validateOnBlur: false,
     onSubmit: ({ username, password }, actions) => {
       setSignupFailed(false);
+      setButtonDisabled(true);
       axios.post(routes.signupPath(), {
         username,
         password,
@@ -56,6 +58,7 @@ const SignupPage = () => {
         })
         .catch((error) => {
           actions.setSubmitting(false);
+          setButtonDisabled(false);
           if (error.isAxiosError && error.response.status === 409) {
             setSignupFailed(true);
           }
@@ -140,7 +143,14 @@ const SignupPage = () => {
                     {signupFailed ? t('signup.userExists') : null}
                   </Form.Text>
                 </Form.Group>
-                <Button type="submit" variant="outline-primary" className="w-100 mb-3">{t('signup.signup')}</Button>
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  className="w-100 mb-3"
+                  disabled={buttonDisabled}
+                >
+                  {t('signup.signup')}
+                </Button>
               </Form>
             </Card.Body>
           </Card>
