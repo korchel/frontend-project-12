@@ -91,6 +91,7 @@ const LoginPage = () => {
                     isInvalid={
                       (formik.touched.username && formik.errors.username) || authFailed
                     }
+                    autoComplete="off"
                   />
                   <Form.Text className="text-danger">
                     {formik.errors.username && formik.touched.username
